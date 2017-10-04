@@ -48,7 +48,7 @@ public class Product implements Serializable{
     @ManyToOne
     private ProductCatalog catalog;
         
-    @OneToOne
+    @OneToOne (orphanRemoval = true)
     private Bid currentBid;
     
       /**

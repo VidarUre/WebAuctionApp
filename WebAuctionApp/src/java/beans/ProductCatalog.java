@@ -29,10 +29,10 @@ public class ProductCatalog implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     
-    @OneToOne
+    @OneToOne (orphanRemoval = true)
     private User owner;
     
-    @OneToMany (mappedBy = "catalog")
+    @OneToMany (mappedBy = "catalog", orphanRemoval = true)
     private List<Product> products; 
 
     public ProductCatalog() {

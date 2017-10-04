@@ -5,8 +5,11 @@
  */
 package database;
 
+import beans.AuctionPlace;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,4 +21,17 @@ public class AuctionPlaceCM {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    @PersistenceContext(unitName = "WebAuctionAppPU")
+    private EntityManager em;
+    
+    public void storeAuctionPlace(AuctionPlace auctionPlace){
+        em.persist(auctionPlace);
+    }
+    
+     public AuctionPlace getAuctionPlace(Long id) {
+        AuctionPlace auctionPlace = em.find(AuctionPlace.class, id);
+        return auctionPlace;
+    }
+
 }

@@ -5,8 +5,11 @@
  */
 package database;
 
+import beans.Feedback;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,4 +21,16 @@ public class FeedbackCM {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @PersistenceContext(unitName = "WebAuctionAppPU")
+    private EntityManager em;
+    
+    public void storeFeedback(Feedback feedback){
+        em.persist(feedback);
+    }
+    
+     public Feedback getFeedback(Long id) {
+        Feedback feedback = em.find(Feedback.class, id);
+        return feedback;
+    }
+
 }

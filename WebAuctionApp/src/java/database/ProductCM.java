@@ -5,8 +5,11 @@
  */
 package database;
 
+import beans.Product;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,4 +21,16 @@ public class ProductCM {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @PersistenceContext(unitName = "WebAuctionAppPU")
+    private EntityManager em;
+    
+    public void storeProduct(Product product){
+        em.persist(product);
+    }
+    
+     public Product getProduct(Long id) {
+        Product product = em.find(Product.class, id);
+        return product;
+    }
+
 }

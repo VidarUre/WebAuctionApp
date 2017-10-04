@@ -55,20 +55,18 @@ public class User implements Serializable {
     private String password;
     private Boolean loggedIn;
     private String email;
-    private String phonenumber;
-
-    // Riktig med OneToOne når det er flere, selvstendige objekter? 
+    private String phonenumber; 
     
-    @OneToOne (mappedBy = "owner")
+    @OneToOne (mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog acquiredProducts;
     
-    @OneToOne (mappedBy = "owner")
+    @OneToOne (mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog soldProducts;
     
-    @OneToOne (mappedBy = "owner")
+    @OneToOne (mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog productCatalog;
     
-    @OneToMany (mappedBy = "author")
+    @OneToMany (mappedBy = "author", orphanRemoval = true)
     private List<Feedback> feedback;
     
     public User() {

@@ -16,9 +16,10 @@ import javax.persistence.PersistenceContext;
  * @author Vidar
  */
 @Stateless
+@LocalBean
 public class UserCM {
 
-    @PersistenceContext(unitName = "EnterpriseApplication77PU")
+    @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     
     protected EntityManager getEntityManager() {
@@ -29,9 +30,13 @@ public class UserCM {
         em.persist(user);
     }
     
-    public User findUser(String username) {
+    public User getUser(String username) {
         User foundUser = em.find(User.class, username);
         return foundUser;
+    }
+    
+    public void deleteUser(User user){
+        em.remove(user);
     }
     
     public boolean isValidLogin(String username, String password) {

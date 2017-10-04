@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UserCM {
 
-    @PersistenceContext(unitName = "EnterpriseApplication77PU")
+    @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     
     protected EntityManager getEntityManager() {

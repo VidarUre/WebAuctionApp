@@ -1,3 +1,8 @@
 /WebAuctionApp/nbproject/private/
 /WebAuctionApp/build/
 /WebAuctionApp/dist/
+WebAuctionApp/nbproject/project.properties
+WebAuctionApp/build/web/WEB-INF/classes/database/UserCM.class
+*.class
+*.properties
+WebAuctionApp/build/web/WEB-INF/classes/beans/User_.class

@@ -10,13 +10,14 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Vidar
  */
 @Stateless
-@LocalBean
+//@LocalBean
 public class UserCM {
 
     @PersistenceContext(unitName = "WebAuctionAppPU")
@@ -30,8 +31,16 @@ public class UserCM {
         em.persist(user);
     }
     
-    public User findUser(String username) {
-        User foundUser = em.find(User.class, username);
+    public User findUserByEmail(String email) {
+        User foundUser = null;
+        Query createNamedQuery = getEntityManager().createNamedQuery("User.findByEmail");
+        
+        createNamedQuery.setParameter("email", email);
+
+        if (createNamedQuery.getResultList().size() > 0) {
+            foundUser = (User) createNamedQuery.getSingleResult();
+        }
+        //User foundUser = em.find(User.class, email);
         return foundUser;
     }
     

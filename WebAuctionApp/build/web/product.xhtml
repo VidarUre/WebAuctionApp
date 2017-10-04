@@ -15,16 +15,16 @@ and open the template in the editor.
         <h1>#{product.name}</h1>
         <table>
             <tr>
-                <td><image src="#{productController.product.picture}" id="#{productController.product.name}" alt="#{productController.product.name}" /></td>
+                <td><image src="#{productController.picture}" id="#{productController.name}" alt="#{productController.name}" /></td>
                 <td>
                     <h2>About the seller</h2>
                     <h:commandButton id="gotoseller" value="Go to seller" action="#{productController.goToSeller}" />
                     <table>
                         <tr>
-                            <td><b>Name: </b> #{productController.product.seller.username}</td>
-                            <td><b>Rating: </b>#{productController.product.seller.rating}</td>
-                            <td><b>Phone number: </b> #{productController.product.seller.phonenumber}</td>
-                            <td><b>Email: </b> #{productContoller.product.seller.email}</td>
+                            <td><b>Name: </b> #{productController.seller.username}</td>
+                            <td><b>Rating: </b>#{productController.seller.rating}</td>
+                            <td><b>Phone number: </b> #{productController.seller.phonenumber}</td>
+                            <td><b>Email: </b> #{productContoller.seller.email}</td>
                         </tr>
                     </table>
                 </td>

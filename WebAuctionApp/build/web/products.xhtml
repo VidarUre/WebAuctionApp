@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Browse Products</title>
+    </h:head>
+    <h:body>
+        <h1>Products</h1>
+        <p>Logged in as #{userController.user.username}</p>
+        <h:form>
+            <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
+        </h:form>
+        <!-- Filtering options -->
+        <ui:repeat value="#{productController.products}" var="product">
+            <li><h:outputText value="#{productController.product.name}" /></li>
+            <li><h:outputText value="#{productController.product.seller.name}" /></li>
+            <!-- Product Image -->
+            <li><h:outputText value="Current bid: #{productController.product.currentBid.amount}" /></li>
+            <li><h:outputText value="Time remaning: #{productController.product.remainingTime}" /></li>
+            <h:form>
+                <h:commandButton id="goToProduct" value="Go to product" action="product" /> <!-- Link til produktet? -->
+            </h:form>
+        </ui:repeat>
+    </h:body>
+</html>
+

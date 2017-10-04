@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h1>Register</h1>
+        <h:form>
+            <p>Username: <h:inputText id="username" value="#{userController.user.username}" /></p>
+            <p>Email: <h:inputText id="email" value="#{userController.user.email}" /></p>
+            <p>Phone number: <h:inputText id="phonenumber" value="#{userController.user.phoneNumber}" /></p>
+            <p>Password: <h:inputText id="password" value="#{userController.user.password}" /></p>
+            <h:commandButton id="register" value="Register" action="#{userController.register}" />
+        </h:form>
+    </body>
+</html>

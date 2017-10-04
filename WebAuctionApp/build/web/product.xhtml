@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>#{product.name}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1>#{product.name}</h1>
+        <table>
+            <tr>
+                <td><image src="#{productController.product.picture}" id="#{productController.product.name}" alt="#{productController.product.name}" /></td>
+                <td>
+                    <h2>About the seller</h2>
+                    <h:commandButton id="gotoseller" value="Go to seller" action="#{productController.goToSeller}" />
+                    <table>
+                        <tr>
+                            <td><b>Name: </b> #{productController.product.seller.username}</td>
+                            <td><b>Rating: </b>#{productController.product.seller.rating}</td>
+                            <td><b>Phone number: </b> #{productController.product.seller.phonenumber}</td>
+                            <td><b>Email: </b> #{productContoller.product.seller.email}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><b>Current bid: </b> #{productController.product.currentBid.amount} <b>Time remaining: </b> #{productController.product.bid.remainingTime}</p>
+                </td>
+                <td>
+                    <h2>About the product</h2>
+                    <table>
+                        <tr>
+                            <td><b>#{productController.product.name}</b></td>
+                            <td><b>Rating: </b> #{productController.product.rating}</td>
+                            <td>
+                                <p>
+                                    <b>Features:</b>
+                                </p>
+                                <p>
+                                    #{productController.product.features}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <h:form>
+            <p>Your bid: <h:inputText id="newbid" value="#bidController.bid.amount}" /></p>
+            <h:commandButton id="placebid" value="Place bid" action="#{bidController.placebid}" />
+        </h:form>
+    </h:body>
+</html>

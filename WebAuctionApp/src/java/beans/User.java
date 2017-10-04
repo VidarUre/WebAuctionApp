@@ -33,7 +33,7 @@ import javax.persistence.Table;
 //@LocalBean
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
 })
 @Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this
 public class User implements Serializable {

@@ -31,11 +31,11 @@ public class UserCM {
         em.persist(user);
     }
     
-    public User findUserByEmail(String email) {
+    public User findUserByUsername(String username) {
         User foundUser = null;
-        Query createNamedQuery = getEntityManager().createNamedQuery("User.findByEmail");
+        Query createNamedQuery = getEntityManager().createNamedQuery("User.findByUsername");
         
-        createNamedQuery.setParameter("email", email);
+        createNamedQuery.setParameter("username", username);
 
         if (createNamedQuery.getResultList().size() > 0) {
             foundUser = (User) createNamedQuery.getSingleResult();

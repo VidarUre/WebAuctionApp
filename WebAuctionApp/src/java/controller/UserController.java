@@ -58,7 +58,7 @@ public class UserController implements Serializable {
         isValid = this.userCM.isValidLogin(this.username, this.password);
         
         if(isValid) {
-            this.user = this.userCM.findUserByEmail(this.getEmail());
+            this.user = this.userCM.findUserByUsername(this.getUsername());
             if(user != null) {
                 result = "/products";
             } else {

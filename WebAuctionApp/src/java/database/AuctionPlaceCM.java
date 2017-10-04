@@ -29,7 +29,7 @@ public class AuctionPlaceCM {
         em.persist(auctionPlace);
     }
     
-     public AuctionPlace getAuctionPlace(Long id) {
+     public AuctionPlace findAuctionPlace(Long id) {
         AuctionPlace auctionPlace = em.find(AuctionPlace.class, id);
         return auctionPlace;
     }

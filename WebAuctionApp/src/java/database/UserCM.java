@@ -30,7 +30,7 @@ public class UserCM {
         em.persist(user);
     }
     
-    public User getUser(String username) {
+    public User findUser(String username) {
         User foundUser = em.find(User.class, username);
         return foundUser;
     }

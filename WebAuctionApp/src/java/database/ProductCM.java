@@ -28,7 +28,7 @@ public class ProductCM {
         em.persist(product);
     }
     
-     public Product getProduct(Long id) {
+     public Product findProduct(Long id) {
         Product product = em.find(Product.class, id);
         return product;
     }

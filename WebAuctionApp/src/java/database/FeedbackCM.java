@@ -28,7 +28,7 @@ public class FeedbackCM {
         em.persist(feedback);
     }
     
-     public Feedback getFeedback(Long id) {
+     public Feedback findFeedback(Long id) {
         Feedback feedback = em.find(Feedback.class, id);
         return feedback;
     }

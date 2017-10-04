@@ -28,7 +28,7 @@ public class BidCM {
         em.persist(bid);
     }
     
-     public Bid getBid(Long id) {
+     public Bid findBid(Long id) {
         Bid bid = em.find(Bid.class, id);
         return bid;
     }

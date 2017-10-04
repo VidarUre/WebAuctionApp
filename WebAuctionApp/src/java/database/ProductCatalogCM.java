@@ -28,7 +28,7 @@ public class ProductCatalogCM {
         em.persist(productCatalog);
     }
     
-     public ProductCatalog getProductCatalog(Long id) {
+     public ProductCatalog findProductCatalog(Long id) {
         ProductCatalog catalog;
         catalog = em.find(ProductCatalog.class, id);
         return catalog;

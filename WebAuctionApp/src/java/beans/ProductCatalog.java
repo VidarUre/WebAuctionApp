@@ -29,6 +29,8 @@ public class ProductCatalog implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     
+    private String status;
+    
     @OneToOne (orphanRemoval = true)
     private User owner;
     
@@ -64,5 +66,13 @@ public class ProductCatalog implements Serializable{
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

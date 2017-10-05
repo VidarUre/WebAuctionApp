@@ -53,14 +53,8 @@ public class User implements Serializable {
     private String email;
     private String phonenumber; 
     
-    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
-    private ProductCatalog acquiredProducts;
-    
-    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
-    private ProductCatalog soldProducts;
-    
-    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
-    private ProductCatalog productCatalog;
+    @OneToOne (mappedBy="owner", orphanRemoval=true)
+    private ProductCatalog catalog;
     
     @OneToMany (mappedBy = "author", orphanRemoval = true)
     private List<Feedback> feedback;
@@ -119,22 +113,6 @@ public class User implements Serializable {
     public void setFeedback(List<Feedback> feedback) {
         this.feedback = feedback;
     }
-
-    public ProductCatalog getAcquiredProducts() {
-        return acquiredProducts;
-    }
-
-    public void setAcquiredProducts(ProductCatalog acquiredProducts) {
-        this.acquiredProducts = acquiredProducts;
-    }
-
-    public ProductCatalog getSoldProducts() {
-        return soldProducts;
-    }
-
-    public void setSoldProducts(ProductCatalog soldProducts) {
-        this.soldProducts = soldProducts;
-    }
     
     public void setPhoneNumber(String n){
         this.phonenumber = n;
@@ -152,19 +130,19 @@ public class User implements Serializable {
         return email;
     } 
     
-    public ProductCatalog getProductCatalog() {
-        return productCatalog;
-    }
-
-    public void setProductCatalog(ProductCatalog productCatalog) {
-        this.productCatalog = productCatalog;
-    }
-    
     public AuctionPlace getAuctionplace() {
         return auctionplace;
     }
 
     public void setAuctionplace(AuctionPlace auctionplace) {
         this.auctionplace = auctionplace;
+    }
+    
+    public ProductCatalog getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(ProductCatalog catalog) {
+        this.catalog = catalog;
     }
 }

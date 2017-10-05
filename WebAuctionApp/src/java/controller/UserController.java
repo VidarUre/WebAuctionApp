@@ -110,10 +110,12 @@ public class UserController implements Serializable {
             this.user.setLoggedIn(false);
             this.user.setRating(0);
             
-            this.userCM.storeUser(this.user);
-            
             // Creating the user's product catalogs and feedback
             createCatalogs();
+            
+            this.userCM.storeUser(this.user);
+            
+            storeCatalogs();
             
             return "login";
         } else return "register";
@@ -123,24 +125,19 @@ public class UserController implements Serializable {
         this.productCatalog = new ProductCatalog();
         this.soldProducts = new ProductCatalog();
         this.aquiredProducts = new ProductCatalog();
-        this.productCatalogCM.storeProductCatalog(productCatalog);
-        this.productCatalogCM.storeProductCatalog(soldProducts);
-        this.productCatalogCM.storeProductCatalog(aquiredProducts);
+        this.productCatalog.setOwner(this.user);
+        this.soldProducts.setOwner(this.user);
+        this.aquiredProducts.setOwner(this.user);
+        this.user.setProductCatalog(productCatalog);
+        this.user.setSoldProducts(soldProducts);
+        this.user.setAcquiredProducts(aquiredProducts);
         //this.feedbackCM.storeFeedback(feedback);
     }
     
-    public String publishProduct() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String result;
-        
-        Product product = productController.createProduct(true);
-        if(product != null) {
-            this.productCatalog.addProduct(product);
-            productCatalogCM.updateProductCatalog(productCatalog);
-            result = "products";
-        } else result = "publishproduct";
-        return result;
+    private void storeCatalogs() {
+        this.productCatalogCM.storeProductCatalog(productCatalog);
+        this.productCatalogCM.storeProductCatalog(soldProducts);
+        this.productCatalogCM.storeProductCatalog(aquiredProducts);
     }
     
     public User getUser() {

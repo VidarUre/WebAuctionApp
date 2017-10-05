@@ -8,17 +8,17 @@
     </h:head>
     <h:body>
         <h1>Products</h1>
-        <p>Logged in as #{userController.user.username}</p>
+        <p>Logged in as #{userController.username}</p>
         <h:form>
             <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
         </h:form>
         <!-- Filtering options -->
         <ui:repeat value="#{productController.products}" var="product">
-            <li><h:outputText value="#{productController.product.name}" /></li>
-            <li><h:outputText value="#{productController.product.seller.name}" /></li>
+            <li><h:outputText value="#{productController.name}" /></li>
+            <li><h:outputText value="#{productController.seller.name}" /></li>
             <!-- Product Image -->
-            <li><h:outputText value="Current bid: #{productController.product.currentBid.amount}" /></li>
-            <li><h:outputText value="Time remaning: #{productController.product.remainingTime}" /></li>
+            <li><h:outputText value="Current bid: #{productController.currentBid.amount}" /></li>
+            <li><h:outputText value="Time remaning: #{productController.remainingTime}" /></li>
             <h:form>
                 <h:commandButton id="goToProduct" value="Go to product" action="product" /> <!-- Link til produktet? -->
             </h:form>

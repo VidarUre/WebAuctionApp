@@ -25,13 +25,14 @@ import database.UserCM;
 @SessionScoped
 public class UserController implements Serializable {
 
-    @EJB
+    //@EJB
     private User user;
     private String username;
     private String email;
     private String phonenumber;
     private String password;
     
+    @EJB
     private UserCM userCM;
 
     /**
@@ -54,22 +55,20 @@ public class UserController implements Serializable {
         String result;
         boolean isValid;
         
-        this.username = request.getParameter("username");
-        this.password = request.getParameter("password");
-        
         isValid = this.userCM.isValidLogin(this.username, this.password);
         
         if(isValid) {
-            userCM.findUser(this.username);
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            session.setAttribute("username", this.username);
-            session.setAttribute("password", this.password);
-            result = "/products";
+            this.user = this.userCM.findUserByUsername(this.getUsername());
+            if(user != null) {
+                result = "/products";
+            } else {
+                result = "login";
+            }
         } else {
             //Bruker er ugyldig
             result = "login";
         }
-       return null; 
+       return result; 
     }
     
     public String InitRegister(){
@@ -80,19 +79,18 @@ public class UserController implements Serializable {
     public String register() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String result;
         
-        this.username = request.getParameter("username");
-        this.email = request.getParameter("email");
-        this.phonenumber = request.getParameter("phonenumber");
-        this.password = request.getParameter("password");
-        
-        if(this.user.isValidRegister(this.username, this.email, this.phonenumber, this.password)) {
-            this.user.setUsername(this.username);
-            this.user.setEmail(this.email);
-            this.user.setPhoneNumber(this.phonenumber);
-            this.user.setPassword(this.password);
-          //  this.user.storeUser(this.user);
+        if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
+            this.user = new User();
+            this.user.setUsername(this.getUsername());
+            this.user.setEmail(this.getEmail());
+            this.user.setPhoneNumber(this.getPhonenumber());
+            this.user.setPassword(this.getPassword());
+            
+            this.user.setLoggedIn(false);
+            this.user.setRating(0);
+            
+            this.userCM.storeUser(this.user);
             return "login";
         } else return "register";
     }
@@ -135,5 +133,25 @@ public class UserController implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public boolean isValidRegister(String un, String em, String pn, String pw) {
+        return isValidUsername(un) && isValidEmail(em) && isValidPhonenumber(pn) && isValidPassword(pw);
+    }
+    
+    private boolean isValidUsername(String username) {
+        return true;
+    }
+    
+    private boolean isValidPassword(String password) {
+        return true;
+    }
+    
+    private boolean isValidEmail(String email) {
+        return true;
+    }
+    
+    private boolean isValidPhonenumber(String phonenumber) {
+        return true;
     }
 }

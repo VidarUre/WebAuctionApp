@@ -14,9 +14,9 @@ and open the template in the editor.
     <h:body>
         <h1>Publish Product</h1>
         <h:form>
-            <p>Product name: <h:inputText id="productname" value="#{productController.product.name}" /></p>
-            <p>Image source: <h:inputText id="imagesource" value="#{productController.product.picture}" /></p>
-            <p>Features: <h:inputTextarea id="features" value="#{productController.product.features}" /></p>
+            <p>Product name: <h:inputText id="productname" value="#{productController.name}" /></p>
+            <p>Image source: <h:inputText id="imagesource" value="#{productController.picture}" /></p>
+            <p>Features: <h:inputTextarea id="features" value="#{productController.features}" /></p>
             <h:commandButton id="savewithoutpublishing" value="Save without publishing" action="#{productController.savewithoutpublishing}" />
             <h:commandButton id="publish" value="Publish" action="#{productController.publish}" />
         </h:form>

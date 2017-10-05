@@ -14,10 +14,10 @@ and open the template in the editor.
     <body>
         <h1>Register</h1>
         <h:form>
-            <p>Username: <h:inputText id="username" value="#{userController.user.username}" /></p>
-            <p>Email: <h:inputText id="email" value="#{userController.user.email}" /></p>
-            <p>Phone number: <h:inputText id="phonenumber" value="#{userController.user.phoneNumber}" /></p>
-            <p>Password: <h:inputText id="password" value="#{userController.user.password}" /></p>
+            <p>Username: <h:inputText id="username" value="#{userController.username}" /></p>
+            <p>Email: <h:inputText id="email" value="#{userController.email}" /></p>
+            <p>Phone number: <h:inputText id="phonenumber" value="#{userController.phonenumber}" /></p>
+            <p>Password: <h:inputText id="password" value="#{userController.password}" /></p>
             <h:commandButton id="register" value="Register" action="#{userController.register}" />
         </h:form>
     </body>

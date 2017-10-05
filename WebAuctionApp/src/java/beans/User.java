@@ -5,10 +5,12 @@
  */
 package beans;
 
+import com.sun.istack.Nullable;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
@@ -28,20 +30,13 @@ import javax.persistence.Table;
  * @author TorkelNes
  */
 @Stateful
-@LocalBean
+//@LocalBean
 @Entity
-@Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this
 @NamedQueries({
-    //@NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username"),
-    //@NamedQuery(name = "User.createUser", query = "SELECT u from User u WHERE u.username = :username")
-    })
+    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+})
+@Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this
 public class User implements Serializable {
-    //@PersistenceContext(unitName = "EnterpriseApplication77PU")
-    //private EntityManager em;
-    
-   // protected EntityManager getEntityManager() {
-   // return em;
-   // }
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,7 +45,7 @@ public class User implements Serializable {
     @ManyToOne
     private AuctionPlace auctionplace;
     
-    private Double rating;    
+    private Double rating;  
     private String username;
     private String password;
     private Boolean loggedIn;
@@ -70,10 +65,6 @@ public class User implements Serializable {
     private List<Feedback> feedback;
     
     public User() {
-    }
-    
-    public boolean isValidRegister(String un, String em, String pn, String pw) {
-        return isValidUsername(un) && isValidEmail(em) && isValidPhonenumber(pn) && isValidPassword(pw);
     }
     
     public Long getId() {
@@ -174,21 +165,5 @@ public class User implements Serializable {
 
     public void setAuctionplace(AuctionPlace auctionplace) {
         this.auctionplace = auctionplace;
-    }
-    
-    private boolean isValidUsername(String username) {
-        return true;
-    }
-    
-    private boolean isValidPassword(String password) {
-        return true;
-    }
-    
-    private boolean isValidEmail(String email) {
-        return true;
-    }
-    
-    private boolean isValidPhonenumber(String phonenumber) {
-        return true;
     }
 }

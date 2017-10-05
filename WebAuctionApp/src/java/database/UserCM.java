@@ -40,7 +40,6 @@ public class UserCM {
         if (createNamedQuery.getResultList().size() > 0) {
             foundUser = (User) createNamedQuery.getSingleResult();
         }
-        //User foundUser = em.find(User.class, email);
         return foundUser;
     }
     

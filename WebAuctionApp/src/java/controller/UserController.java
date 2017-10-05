@@ -5,6 +5,8 @@
  */
 package controller;
 
+import beans.Feedback;
+import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -14,7 +16,10 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import beans.User;
+import database.FeedbackCM;
+import database.ProductCatalogCM;
 import database.UserCM;
+import java.util.List;
 
 /**
  *
@@ -25,8 +30,13 @@ import database.UserCM;
 @SessionScoped
 public class UserController implements Serializable {
 
-    //@EJB
     private User user;
+    
+    private ProductCatalog productCatalog;
+    private ProductCatalog soldProducts;
+    private ProductCatalog aquiredProducts;
+    //private List<Feedback> feedback; 
+    
     private String username;
     private String email;
     private String phonenumber;
@@ -34,6 +44,12 @@ public class UserController implements Serializable {
     
     @EJB
     private UserCM userCM;
+    
+    @EJB
+    private ProductCatalogCM productCatalogCM;
+    
+    @EJB
+    private FeedbackCM feedbackCM;
 
     /**
      * Creates a new instance of UserController
@@ -91,8 +107,22 @@ public class UserController implements Serializable {
             this.user.setRating(0);
             
             this.userCM.storeUser(this.user);
+            
+            // Creating the user's product catalogs and feedback
+            createCatalogs();
+            
             return "login";
         } else return "register";
+    }
+    
+    private void createCatalogs() {
+        this.productCatalog = new ProductCatalog();
+        this.soldProducts = new ProductCatalog();
+        this.aquiredProducts = new ProductCatalog();
+        this.productCatalogCM.storeProductCatalog(productCatalog);
+        this.productCatalogCM.storeProductCatalog(soldProducts);
+        this.productCatalogCM.storeProductCatalog(aquiredProducts);
+        //this.feedbackCM.storeFeedback(feedback);
     }
     
     public User getUser() {

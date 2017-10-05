@@ -12,20 +12,23 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import beans.Product;
+import database.ProductCM;
 
 /**
  *
  * @author TorkelNes
  */
-@Named(value = "product")
+@Named(value = "productController")
 @SessionScoped
 public class ProductController implements Serializable {
 
-    @EJB
     private Product product;
     private String name;
     private String picture; // May change
     private String features;
+    
+    @EJB
+    ProductCM productCM;
 
     /**
      * Creates a new instance of Product
@@ -38,12 +41,15 @@ public class ProductController implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         String result;
         
-        this.name = request.getParameter("name");
-        this.picture = request.getParameter("picture");
-        this.features = request.getParameter("features");
-        
-        if(product.productIsValid(this.name, this.picture, this.features)) {
-            // Lagre produkt i databasen med published = true
+        if(productIsValid(this.name, this.picture, this.features)) {
+            this.product = new Product();
+            this.product.setName(this.name);
+            this.product.setPicture(this.picture);
+            this.product.setFeatures(this.features);
+            this.product.setPublished(true);
+            this.product.setRemainingTime(1000000);
+            // Start nedtelling
+            
             result = "products";
         } else result = "publishProduct";
         
@@ -55,16 +61,23 @@ public class ProductController implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         String result;
         
-        this.name = request.getParameter("name");
-        this.picture = request.getParameter("picture");
-        this.features = request.getParameter("features");
-        
-        if(product.productIsValid(this.name, this.picture, this.features)) {
-            // Lagre produkt i databasen med published = false
+        if(productIsValid(this.name, this.picture, this.features)) {
+            this.product = new Product();
+            this.product.setName(this.name);
+            this.product.setPicture(this.picture);
+            this.product.setFeatures(this.features);
+            this.product.setPublished(false);
+            this.product.setRemainingTime(100000);
+            productCM.storeProduct(this.product);
+            
             result = "products";
         } else result = "publishProduct";
         
         return result;
+    }
+    
+    public boolean productIsValid(String name, String picture, String features) {
+        return name != null && name.length() > 0 && picture != null && picture.length() > 0 && features != null && features.length() > 0;
     }
 
     public Product getProduct() {

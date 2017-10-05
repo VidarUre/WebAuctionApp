@@ -56,10 +56,6 @@ public class Product implements Serializable{
      */
     public Product() {
     }
-    
-    public boolean productIsValid(String name, String picture, String features) {
-        return name != null && name.length() > 0 && picture != null && picture.length() > 0 && features != null && features.length() > 0;
-    }
 
     public Long getId() {
         return ID;
@@ -101,7 +97,7 @@ public class Product implements Serializable{
         this.rating = rating;
     }
 
-    public boolean isPublished() {
+    public boolean getPublished() {
         return published;
     }
 
@@ -129,20 +125,12 @@ public class Product implements Serializable{
         this.rating = rating;
     }
 
-    public void setPublished(Boolean published) {
-        this.published = published;
-    }
-
     public void setRemainingTime(Long remainingTime) {
         this.remainingTime = remainingTime;
     }
 
     public void setCatalog(ProductCatalog catalog) {
         this.catalog = catalog;
-    }
-
-    public Boolean getPublished() {
-        return published;
     }
 
     public ProductCatalog getCatalog() {

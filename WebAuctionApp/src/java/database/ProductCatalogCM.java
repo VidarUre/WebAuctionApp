@@ -23,14 +23,15 @@ public class ProductCatalogCM {
     private EntityManager em;
     
     public void storeProductCatalog(ProductCatalog productCatalog){
-        em.persist(productCatalog);
+        //em.persist(productCatalog);
     }
     
     public void updateProductCatalog(ProductCatalog productCatalog) {
         em.merge(productCatalog);
     }
     
-     public ProductCatalog findProductCatalog(Long id) {
+    
+    public ProductCatalog findProductCatalog(Long id) {
         ProductCatalog catalog;
         catalog = em.find(ProductCatalog.class, id);
         return catalog;

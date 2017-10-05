@@ -33,9 +33,9 @@ public class UserController implements Serializable {
 
     private User user;
     
-    private ProductCatalog productCatalog;
+    private ProductCatalog productsForSale;
     private ProductCatalog soldProducts;
-    private ProductCatalog aquiredProducts;
+    private ProductCatalog boughtProducts;
     //private List<Feedback> feedback; 
     
     private String username;
@@ -51,14 +51,12 @@ public class UserController implements Serializable {
     
     @EJB
     private FeedbackCM feedbackCM;
-    
-    ProductController productController;
 
     /**
      * Creates a new instance of UserController
      */
     public UserController() {
-        productController = new ProductController();
+        
     }
 
     public String navigate() {
@@ -115,30 +113,38 @@ public class UserController implements Serializable {
             
             this.userCM.storeUser(this.user);
             
-            storeCatalogs();
+            //storeCatalogs();
             
             return "login";
         } else return "register";
     }
     
     private void createCatalogs() {
-        this.productCatalog = new ProductCatalog();
+        this.productsForSale = new ProductCatalog();
+        this.productsForSale.setStatus("forSale");
+        this.productsForSale.setOwner(this.user);
+        this.user.setProductsForSale(productsForSale);
+        
         this.soldProducts = new ProductCatalog();
-        this.aquiredProducts = new ProductCatalog();
-        this.productCatalog.setOwner(this.user);
+        this.soldProducts.setStatus("sold");
         this.soldProducts.setOwner(this.user);
-        this.aquiredProducts.setOwner(this.user);
-        this.user.setProductCatalog(productCatalog);
         this.user.setSoldProducts(soldProducts);
-        this.user.setAcquiredProducts(aquiredProducts);
+        
+        this.boughtProducts = new ProductCatalog();
+        this.boughtProducts.setStatus("bought");
+        this.boughtProducts.setOwner(this.user);
+        this.user.setBoughtProducts(boughtProducts);
+        
         //this.feedbackCM.storeFeedback(feedback);
     }
     
+    /*
     private void storeCatalogs() {
-        this.productCatalogCM.storeProductCatalog(productCatalog);
+        this.productCatalogCM.storeProductCatalog(productsForSale);
         this.productCatalogCM.storeProductCatalog(soldProducts);
-        this.productCatalogCM.storeProductCatalog(aquiredProducts);
+        this.productCatalogCM.storeProductCatalog(boughtProducts);
     }
+    */
     
     public User getUser() {
         return user;

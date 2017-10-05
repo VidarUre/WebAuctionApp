@@ -53,8 +53,14 @@ public class User implements Serializable {
     private String email;
     private String phonenumber; 
     
-    @OneToOne (mappedBy="owner", orphanRemoval=true)
-    private ProductCatalog catalog;
+    @OneToOne (cascade = CascadeType.PERSIST, mappedBy="owner", orphanRemoval=true)
+    private ProductCatalog productsForSale;
+    
+    @OneToOne (cascade = CascadeType.PERSIST, mappedBy="owner", orphanRemoval=true)
+    private ProductCatalog soldProducts;
+    
+    @OneToOne (cascade = CascadeType.PERSIST, mappedBy="owner", orphanRemoval=true)
+    private ProductCatalog boughtProducts;
     
     @OneToMany (mappedBy = "author", orphanRemoval = true)
     private List<Feedback> feedback;
@@ -138,11 +144,27 @@ public class User implements Serializable {
         this.auctionplace = auctionplace;
     }
     
-    public ProductCatalog getCatalog() {
-        return catalog;
+    public ProductCatalog getProductsForSale() {
+        return productsForSale;
     }
 
-    public void setCatalog(ProductCatalog catalog) {
-        this.catalog = catalog;
+    public void setProductsForSale(ProductCatalog productsForSale) {
+        this.productsForSale = productsForSale;
+    }
+    
+    public ProductCatalog getSoldProducts() {
+        return soldProducts;
+    }
+
+    public void setSoldProducts(ProductCatalog soldProducts) {
+        this.soldProducts = soldProducts;
+    }
+    
+    public ProductCatalog getBoughtProducts() {
+        return boughtProducts;
+    }
+
+    public void setBoughtProducts(ProductCatalog boughtProducts) {
+        this.boughtProducts = boughtProducts;
     }
 }

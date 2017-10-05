@@ -32,5 +32,20 @@ public class ProductCM {
         Product product = em.find(Product.class, id);
         return product;
     }
+     
+    public void UpdateName(Product product, String name){
+        product.setName(name);
+        em.merge(product);
+    }
+    
+    public void UpdateFeatures(Product product, String feature){
+        product.setFeatures(feature);
+        em.merge(feature);
+    }
+    
+    public void UpdateRating(Product product, Double rating){
+        product.setRating(rating);
+        em.merge(product);  
+    }
 
 }

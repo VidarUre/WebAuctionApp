@@ -26,11 +26,17 @@ public class BidCM {
     
     public void storeBid(Bid bid){
         em.persist(bid);
+        em.flush();
     }
     
      public Bid findBid(Long id) {
         Bid bid = em.find(Bid.class, id);
         return bid;
+    }
+     
+    public void UpdateBid(Bid bid, Double amount){
+        bid.setAmount(amount);
+        em.merge(bid);
     }
 
 }

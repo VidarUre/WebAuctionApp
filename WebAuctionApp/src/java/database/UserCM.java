@@ -42,4 +42,24 @@ public class UserCM {
     public boolean isValidLogin(String username, String password) {
        return true;
     }
+    
+    public void UpdateUserRating(User user, Double rating){
+        user.setRating(rating);
+        em.merge(user);
+    }
+    
+    public void UpdateUsername(User user, String username){
+        user.setUsername(username);
+        em.merge(user);
+    }
+    
+    public void UpdateEmail(User user, String email){
+        user.setEmail(email);
+        em.merge(email);
+    }
+    
+    public void UpdatePhonenumber(User user, String phonenumber){
+        user.setPhoneNumber(phonenumber);
+        em.merge(user);
+    }
 }

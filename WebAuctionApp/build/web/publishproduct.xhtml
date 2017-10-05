@@ -17,7 +17,7 @@ and open the template in the editor.
             <p>Product name: <h:inputText id="productname" value="#{productCatalogController.name}" /></p>
             <p>Image source: <h:inputText id="imagesource" value="#{productCatalogController.picture}" /></p>
             <p>Features: <h:inputTextarea id="features" value="#{productCatalogController.features}" /></p>
-            <h:commandButton id="savewithoutpublishing" value="Save without publishing" action="#{productCatalogController.savewithoutpublishing}" />
+            <h:commandButton id="savewithoutpublishing" value="Save without publishing" action="#{productCatalogController.saveWithoutPublishing}" />
             <h:commandButton id="publishProduct" value="Publish" action="#{productCatalogController.publishProduct}" />
         </h:form>
     </h:body>

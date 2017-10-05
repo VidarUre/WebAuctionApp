@@ -49,4 +49,8 @@ public class AuctionPlace implements Serializable{
     public void setID(Long ID) {
         this.ID = ID;
     }
+    
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

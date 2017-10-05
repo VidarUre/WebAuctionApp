@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class ProductCatalogController implements Serializable {
     
-    //@ManagedProperty(value="#{userController.user}")
-    private User user;
+    @Inject
+    private UserController userController;
     
     private Product product;
     private String name;
@@ -50,19 +50,11 @@ public class ProductCatalogController implements Serializable {
     }
     
     public String publishProduct() {
-        //FacesContext context = FacesContext.getCurrentInstance();
-        String result;
-        
-        this.product = createProduct(true);
-        if(this.product != null) {
-            this.productsForSale = this.user.getProductsForSale();
-            this.productsForSale.addProduct(product);
-            productCatalogCM.updateProductCatalog(productsForSale);
-            result = "products";
-        } else {
-            result = "publishproduct";
-        }
-        return result;
+        return submitProduct(true);
+    }
+    
+    public String saveWithoutPublishing() {
+        return submitProduct(false);
     }
     
     public Product createProduct(boolean shouldPublish) {
@@ -80,6 +72,21 @@ public class ProductCatalogController implements Serializable {
             // Start nedtelling
         }
         return this.product;
+    }
+    
+    private String submitProduct(Boolean shouldPublish) {
+        String result;
+        
+        this.product = createProduct(shouldPublish);
+        if(this.product != null) {
+            this.productsForSale = this.userController.getUser().getProductsForSale();
+            this.productsForSale.addProduct(product);
+            productCatalogCM.updateProductCatalog(productsForSale);
+            result = "products";
+        } else {
+            result = "publishproduct";
+        }
+        return result;
     }
     
     public boolean productIsValid(String name, String picture, String features) {

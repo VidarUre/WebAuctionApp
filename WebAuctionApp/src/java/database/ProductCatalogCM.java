@@ -36,5 +36,7 @@ public class ProductCatalogCM {
         catalog = em.find(ProductCatalog.class, id);
         return catalog;
     }
+    
+    //public ProductCatalog findByUser
 
 }

@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
  *
  * @author S1ndr3
  */
-@Stateless
+@Stateful
 @Entity
 public class ProductCatalog implements Serializable{
     

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import beans.AuctionPlace;
 import beans.Feedback;
 import beans.Product;
 import beans.ProductCatalog;
@@ -21,6 +22,7 @@ import database.FeedbackCM;
 import database.ProductCatalogCM;
 import database.UserCM;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  *
@@ -31,6 +33,8 @@ import java.util.List;
 @SessionScoped
 public class UserController implements Serializable {
 
+    private AuctionPlace auctionPlace;
+    
     private User user;
     
     private ProductCatalog productsForSale;
@@ -46,11 +50,8 @@ public class UserController implements Serializable {
     @EJB
     private UserCM userCM;
     
-    @EJB
-    private ProductCatalogCM productCatalogCM;
-    
-    @EJB
-    private FeedbackCM feedbackCM;
+    @Inject
+    ProductCatalogController pgController;
 
     /**
      * Creates a new instance of UserController
@@ -68,8 +69,6 @@ public class UserController implements Serializable {
     }
     
     public String login() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         String result;
         boolean isValid;
         
@@ -77,6 +76,7 @@ public class UserController implements Serializable {
         
         if(isValid) {
             this.user = this.userCM.findUserByUsername(this.getUsername());
+            this.user.setLoggedIn(true);
             if(user != null) {
                 result = "/products";
             } else {
@@ -95,9 +95,6 @@ public class UserController implements Serializable {
     }
     
     public String register() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        
         if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
             this.user = new User();
             this.user.setUsername(this.getUsername());
@@ -110,6 +107,8 @@ public class UserController implements Serializable {
             
             // Creating the user's product catalogs and feedback
             createCatalogs();
+            
+            this.auctionPlace.
             
             this.userCM.storeUser(this.user);
             

@@ -36,44 +36,21 @@ public class ProductController implements Serializable {
     public ProductController() {
     }
     
-    public String publish() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String result;
-        
+    public Product createProduct(boolean shouldPublish) {
         if(productIsValid(this.name, this.picture, this.features)) {
             this.product = new Product();
             this.product.setName(this.name);
             this.product.setPicture(this.picture);
             this.product.setFeatures(this.features);
-            this.product.setPublished(true);
+            if(shouldPublish == true) {
+                this.product.setPublished(true);
+            } else {
+                this.product.setPublished(false);
+            }
             this.product.setRemainingTime(1000000);
             // Start nedtelling
-            
-            result = "products";
-        } else result = "publishProduct";
-        
-        return result;
-    }
-    
-    public String saveWithoutPublishing() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String result;
-        
-        if(productIsValid(this.name, this.picture, this.features)) {
-            this.product = new Product();
-            this.product.setName(this.name);
-            this.product.setPicture(this.picture);
-            this.product.setFeatures(this.features);
-            this.product.setPublished(false);
-            this.product.setRemainingTime(100000);
-            productCM.storeProduct(this.product);
-            
-            result = "products";
-        } else result = "publishProduct";
-        
-        return result;
+        }
+        return this.product;
     }
     
     public boolean productIsValid(String name, String picture, String features) {

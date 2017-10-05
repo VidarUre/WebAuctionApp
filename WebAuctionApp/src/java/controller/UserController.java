@@ -6,6 +6,7 @@
 package controller;
 
 import beans.Feedback;
+import beans.Product;
 import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -50,11 +51,14 @@ public class UserController implements Serializable {
     
     @EJB
     private FeedbackCM feedbackCM;
+    
+    ProductController productController;
 
     /**
      * Creates a new instance of UserController
      */
     public UserController() {
+        productController = new ProductController();
     }
 
     public String navigate() {
@@ -106,10 +110,12 @@ public class UserController implements Serializable {
             this.user.setLoggedIn(false);
             this.user.setRating(0);
             
-            this.userCM.storeUser(this.user);
-            
             // Creating the user's product catalogs and feedback
             createCatalogs();
+            
+            this.userCM.storeUser(this.user);
+            
+            storeCatalogs();
             
             return "login";
         } else return "register";
@@ -119,10 +125,19 @@ public class UserController implements Serializable {
         this.productCatalog = new ProductCatalog();
         this.soldProducts = new ProductCatalog();
         this.aquiredProducts = new ProductCatalog();
+        this.productCatalog.setOwner(this.user);
+        this.soldProducts.setOwner(this.user);
+        this.aquiredProducts.setOwner(this.user);
+        this.user.setProductCatalog(productCatalog);
+        this.user.setSoldProducts(soldProducts);
+        this.user.setAcquiredProducts(aquiredProducts);
+        //this.feedbackCM.storeFeedback(feedback);
+    }
+    
+    private void storeCatalogs() {
         this.productCatalogCM.storeProductCatalog(productCatalog);
         this.productCatalogCM.storeProductCatalog(soldProducts);
         this.productCatalogCM.storeProductCatalog(aquiredProducts);
-        //this.feedbackCM.storeFeedback(feedback);
     }
     
     public User getUser() {

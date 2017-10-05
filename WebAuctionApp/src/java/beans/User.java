@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -52,13 +53,13 @@ public class User implements Serializable {
     private String email;
     private String phonenumber; 
     
-    @OneToOne (mappedBy = "owner", orphanRemoval = true)
+    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog acquiredProducts;
     
-    @OneToOne (mappedBy = "owner", orphanRemoval = true)
+    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog soldProducts;
     
-    @OneToOne (mappedBy = "owner", orphanRemoval = true)
+    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "owner", orphanRemoval = true)
     private ProductCatalog productCatalog;
     
     @OneToMany (mappedBy = "author", orphanRemoval = true)

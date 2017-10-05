@@ -18,7 +18,7 @@ and open the template in the editor.
             <p>Image source: <h:inputText id="imagesource" value="#{productController.picture}" /></p>
             <p>Features: <h:inputTextarea id="features" value="#{productController.features}" /></p>
             <h:commandButton id="savewithoutpublishing" value="Save without publishing" action="#{productController.savewithoutpublishing}" />
-            <h:commandButton id="publish" value="Publish" action="#{productController.publish}" />
+            <h:commandButton id="publishProduct" value="Publish" action="#{userController.publishProduct}" />
         </h:form>
     </h:body>
 </html>

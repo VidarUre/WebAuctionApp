@@ -5,6 +5,7 @@
  */
 package controller;
 
+import beans.Product;
 import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -15,7 +16,7 @@ import javax.ejb.EJB;
  *
  * @author TorkelNes
  */
-@Named(value = "productCatalog")
+@Named(value = "productCatalogController")
 @SessionScoped
 public class ProductCatalogController implements Serializable {
 
@@ -28,6 +29,7 @@ public class ProductCatalogController implements Serializable {
     public ProductCatalogController() {
     }
     
-    
-    
+    public void addProduct(Product product) {
+        productCatalog.addProduct(product);
+    }    
 }

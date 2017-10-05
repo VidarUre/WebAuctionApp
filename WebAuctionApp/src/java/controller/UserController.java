@@ -6,6 +6,7 @@
 package controller;
 
 import beans.Feedback;
+import beans.Product;
 import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -50,11 +51,14 @@ public class UserController implements Serializable {
     
     @EJB
     private FeedbackCM feedbackCM;
+    
+    ProductController productController;
 
     /**
      * Creates a new instance of UserController
      */
     public UserController() {
+        productController = new ProductController();
     }
 
     public String navigate() {
@@ -123,6 +127,20 @@ public class UserController implements Serializable {
         this.productCatalogCM.storeProductCatalog(soldProducts);
         this.productCatalogCM.storeProductCatalog(aquiredProducts);
         //this.feedbackCM.storeFeedback(feedback);
+    }
+    
+    public String publishProduct() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        String result;
+        
+        Product product = productController.createProduct(true);
+        if(product != null) {
+            this.productCatalog.addProduct(product);
+            productCatalogCM.updateProductCatalog(productCatalog);
+            result = "products";
+        } else result = "publishproduct";
+        return result;
     }
     
     public User getUser() {

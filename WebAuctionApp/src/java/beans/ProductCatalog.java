@@ -37,6 +37,10 @@ public class ProductCatalog implements Serializable{
 
     public ProductCatalog() {
     }
+    
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 
     public Long getID() {
         return ID;

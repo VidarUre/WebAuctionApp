@@ -22,9 +22,11 @@ public class ProductCM {
     @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     
+    /*
     public void storeProduct(Product product){
         em.persist(product);
     }
+    */
     
      public Product findProduct(Long id) {
         Product product = em.find(Product.class, id);

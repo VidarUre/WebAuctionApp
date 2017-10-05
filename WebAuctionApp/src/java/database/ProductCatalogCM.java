@@ -18,14 +18,16 @@ import javax.persistence.PersistenceContext;
 @Stateless
 @LocalBean
 public class ProductCatalogCM {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
     @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     
     public void storeProductCatalog(ProductCatalog productCatalog){
         em.persist(productCatalog);
+    }
+    
+    public void updateProductCatalog(ProductCatalog productCatalog) {
+        em.merge(productCatalog);
     }
     
      public ProductCatalog findProductCatalog(Long id) {

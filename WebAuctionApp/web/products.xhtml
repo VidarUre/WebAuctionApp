@@ -6,7 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Browse Products</title>
     </h:head>
@@ -17,25 +18,18 @@
             <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
         </h:form>
         <!-- Filtering options -->
-        <h:dataTable value="#{auctionPlaceController.users}" var="u">
-            <h:dataTable value="#{u.productCatalog}" var="productCat">
-                <h:dataTable value="#{productCat.}" var="prods">
-                
-                </h:dataTable>
-            </h:dataTable>
-        </h:dataTable>
         <ul>
-            <ui:repeat value="#{auctionPlaceController.users}" var="user">
-                <ui:repeat value="#{user.productCatalog}" var="productCat">
-                    <ui:repeat value="#{productCat.productCatalog.products}" var="prod">
-                        <li> <h:outputText value="#{prod.}"> </li>
-                       <li> <h:outputText value="#{product.rating}"> </li>
-                       <li> <h:outputText value="#{product.remainingTime}"</li>
-                       <li> <h:outputText value="#{product.currentBid}"</li>
+            <ui:repeat value="#{productController.findAllProducts()}" var="product">
+                <li> <h:outputText value="#{product.name}" /></li>
+                <c:if test="#{product.rating != null}">
+                    <li> <h:outputText value="#{product.rating}" /></li>
+                </c:if>
+                <li> <h:outputText value="#{product.remainingTime}" /></li>
+                <c:if test="#{product.currentBid != null}">
+                    <li> <h:outputText value="#{product.currentBid}" /></li>
+                </c:if>
                        <!-- Picture -->
-                       </ui:repeat>
-                </ui:repeat>
-            </ui:reapeat>
+            </ui:repeat>
         </ul>
     </h:body>
 </html>

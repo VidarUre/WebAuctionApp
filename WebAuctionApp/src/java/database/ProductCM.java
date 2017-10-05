@@ -6,10 +6,13 @@
 package database;
 
 import beans.Product;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,11 +25,15 @@ public class ProductCM {
     @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     
-    /*
-    public void storeProduct(Product product){
-        em.persist(product);
+    public EntityManager getEntityManager() {
+        return this.em;
     }
-    */
+    
+    public List<Product> findAllProducts() {
+        TypedQuery<Product> query = getEntityManager().createNamedQuery("Product.findAll", Product.class);
+        List<Product> allProducts = query.getResultList();
+        return allProducts;
+    }
     
      public Product findProduct(Long id) {
         Product product = em.find(Product.class, id);

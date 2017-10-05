@@ -108,8 +108,6 @@ public class UserController implements Serializable {
             // Creating the user's product catalogs and feedback
             createCatalogs();
             
-            this.auctionPlace.
-            
             this.userCM.storeUser(this.user);
             
             //storeCatalogs();

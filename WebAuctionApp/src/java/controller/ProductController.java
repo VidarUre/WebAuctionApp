@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import beans.Product;
 import database.ProductCM;
+import java.util.List;
 
 /**
  *
@@ -21,6 +22,8 @@ import database.ProductCM;
 @Named(value = "productController")
 @SessionScoped
 public class ProductController implements Serializable {
+    
+    private List<Product> allProducts;
 
     private Product product;
     private String name;
@@ -34,6 +37,11 @@ public class ProductController implements Serializable {
      * Creates a new instance of Product
      */
     public ProductController() {
+    }
+    
+    public List<Product> findAllProducts() {
+        this.allProducts = productCM.findAllProducts();
+        return this.allProducts;
     }
     
     public Product createProduct(boolean shouldPublish) {

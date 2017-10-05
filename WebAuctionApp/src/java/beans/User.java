@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -29,8 +30,7 @@ import javax.persistence.Table;
  *
  * @author TorkelNes
  */
-@Stateful
-//@LocalBean
+@Stateless
 @Entity
 @NamedQueries({
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
@@ -151,7 +151,7 @@ public class User implements Serializable {
         return email;
     } 
     
-      public ProductCatalog getProductCatalog() {
+    public ProductCatalog getProductCatalog() {
         return productCatalog;
     }
 

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateful;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,6 @@ import javax.persistence.OneToMany;
  * @author S1ndr3
  */
 @Stateless
-@LocalBean
 @Entity
 public class AuctionPlace implements Serializable{
     

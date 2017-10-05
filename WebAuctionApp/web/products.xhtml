@@ -1,8 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Bootstrap 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+--> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Browse Products</title>
     </h:head>
@@ -13,16 +17,26 @@
             <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
         </h:form>
         <!-- Filtering options -->
-        <ui:repeat value="#{productController.products}" var="product">
-            <li><h:outputText value="#{productController.name}" /></li>
-            <li><h:outputText value="#{productController.seller.name}" /></li>
-            <!-- Product Image -->
-            <li><h:outputText value="Current bid: #{productController.currentBid.amount}" /></li>
-            <li><h:outputText value="Time remaning: #{productController.remainingTime}" /></li>
-            <h:form>
-                <h:commandButton id="goToProduct" value="Go to product" action="product" /> <!-- Link til produktet? -->
-            </h:form>
-        </ui:repeat>
+        <h:dataTable value="#{auctionPlaceController.users}" var="u">
+            <h:dataTable value="#{u.productCatalog}" var="productCat">
+                <h:dataTable value="#{productCat.}" var="prods">
+                
+                </h:dataTable>
+            </h:dataTable>
+        </h:dataTable>
+        <ul>
+            <ui:repeat value="#{auctionPlaceController.users}" var="user">
+                <ui:repeat value="#{user.productCatalog}" var="productCat">
+                    <ui:repeat value="#{productCat.productCatalog.products}" var="prod">
+                        <li> <h:outputText value="#{prod.}"> </li>
+                       <li> <h:outputText value="#{product.rating}"> </li>
+                       <li> <h:outputText value="#{product.remainingTime}"</li>
+                       <li> <h:outputText value="#{product.currentBid}"</li>
+                       <!-- Picture -->
+                       </ui:repeat>
+                </ui:repeat>
+            </ui:reapeat>
+        </ul>
     </h:body>
 </html>
 

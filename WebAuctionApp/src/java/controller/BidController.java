@@ -17,7 +17,7 @@ import beans.Bid;
  *
  * @author TorkelNes
  */
-@Named(value = "bid")
+@Named(value = "bidController")
 @SessionScoped
 public class BidController implements Serializable {
 

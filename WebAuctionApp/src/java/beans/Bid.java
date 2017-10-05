@@ -8,6 +8,7 @@ package beans;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateful;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,6 @@ import javax.persistence.OneToOne;
  * @author S1ndr3
  */
 @Stateless
-@LocalBean
 @Entity
 public class Bid implements Serializable{
     

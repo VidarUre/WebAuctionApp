@@ -17,7 +17,7 @@ import beans.Feedback;
  *
  * @author TorkelNes
  */
-@Named(value = "feedback")
+@Named(value = "feedbackController")
 @SessionScoped
 public class FeedbackController implements Serializable {
 

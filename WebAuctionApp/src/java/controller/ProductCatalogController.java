@@ -15,7 +15,7 @@ import javax.ejb.EJB;
  *
  * @author TorkelNes
  */
-@Named(value = "productCatalog")
+@Named(value = "productCatalogController")
 @SessionScoped
 public class ProductCatalogController implements Serializable {
 

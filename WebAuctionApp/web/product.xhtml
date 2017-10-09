@@ -18,27 +18,27 @@ and open the template in the editor.
                 <td><image src="#{productController.picture}" id="#{productController.name}" alt="#{productController.name}" /></td>
                 <td>
                     <h2>About the seller</h2>
-                    <h:commandButton id="gotoseller" value="Go to seller" action="#{productController.goToSeller}" />
+                    <!--<h:commandButton id="gotoseller" value="Go to seller" action="{productController.goToSeller}" />-->
                     <table>
                         <tr>
-                            <td><b>Name: </b> #{productController.seller.username}</td>
-                            <td><b>Rating: </b>#{productController.seller.rating}</td>
-                            <td><b>Phone number: </b> #{productController.seller.phonenumber}</td>
-                            <td><b>Email: </b> #{productContoller.seller.email}</td>
+                            <!--<td><b>Name: </b> {productController.seller.username}</td>
+                            <td><b>Rating: </b>{productController.seller.rating}</td>
+                            <td><b>Phone number: </b> {productController.seller.phonenumber}</td>
+                            <td><b>Email: </b> {productContoller.seller.email}</td>-->
                         </tr>
                     </table>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p><b>Current bid: </b> #{productController.product.currentBid.amount} <b>Time remaining: </b> #{productController.product.bid.remainingTime}</p>
+                    <!--<p><b>Current bid: </b> {productController.product.currentBid.amount} <b>Time remaining: </b> {productController.product.bid.remainingTime}</p>-->
                 </td>
                 <td>
                     <h2>About the product</h2>
                     <table>
                         <tr>
                             <td><b>#{productController.product.name}</b></td>
-                            <td><b>Rating: </b> #{productController.product.rating}</td>
+                            <!--<td><b>Rating: </b> {productController.product.rating}</td>-->
                             <td>
                                 <p>
                                     <b>Features:</b>
@@ -53,8 +53,8 @@ and open the template in the editor.
             </tr>
         </table>
         <h:form>
-            <p>Your bid: <h:inputText id="newbid" value="#bidController.bid.amount}" /></p>
-            <h:commandButton id="placebid" value="Place bid" action="#{bidController.placebid}" />
+            <p>Your bid: <h:inputText id="newbid" value="{bidController.bid.amount}" /></p>
+            <h:commandButton id="placebid" value="Place bid" action="{bidController.placebid}" />
         </h:form>
     </h:body>
 </html>

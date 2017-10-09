@@ -44,6 +44,11 @@ public class ProductController implements Serializable {
         return this.allProducts;
     }
     
+    public String goToProduct(long productId) {
+        this.product = productCM.findProduct(productId);
+        return "product";
+    }
+    
     public Product createProduct(boolean shouldPublish) {
         if(productIsValid(this.name, this.picture, this.features)) {
             this.product = new Product();

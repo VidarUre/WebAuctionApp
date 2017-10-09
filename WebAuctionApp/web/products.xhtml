@@ -20,15 +20,22 @@
         <!-- Filtering options -->
         <ul>
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
-                <li> <h:outputText value="#{product.name}" /></li>
-                <c:if test="#{product.rating != null}">
-                    <li> <h:outputText value="#{product.rating}" /></li>
+                <c:if test="#{product.published == true}">
+                    <li> <h:outputText value="#{product.name}" /></li>
+                    <!--
+                    <c:if test=" if product rating is null">
+                        <li> <h:outputText value="product rating" /></li>
+                    </c:if>
+                    -->
+                    <li> <h:outputText value="#{product.remainingTime}" /></li>
+                    <c:if test="#{product.currentBid != null}">
+                        <li> <h:outputText value="#{product.currentBid}" /></li>
+                    </c:if>
                 </c:if>
-                <li> <h:outputText value="#{product.remainingTime}" /></li>
-                <c:if test="#{product.currentBid != null}">
-                    <li> <h:outputText value="#{product.currentBid}" /></li>
-                </c:if>
+                <h:form>
+                    <h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" />
                        <!-- Picture -->
+                </h:form>
             </ui:repeat>
         </ul>
     </h:body>

@@ -40,12 +40,15 @@ public class UserController implements Serializable {
     private ProductCatalog productsForSale;
     private ProductCatalog soldProducts;
     private ProductCatalog boughtProducts;
-    //private List<Feedback> feedback; 
+    private List<Feedback> feedback; 
     
     private String username;
     private String email;
     private String phonenumber;
     private String password;
+    
+    private Double feedbackRating;
+    private String feedbackContent;
     
     @EJB
     private UserCM userCM;
@@ -94,6 +97,12 @@ public class UserController implements Serializable {
         return "register";
     }
     
+    public String goToUser(Long id) {
+        //this.user = userCM.getUserById(id);
+        this.feedback = userCM.getFeedbackByUser(this.user);
+        return "userscreen";
+    }
+    
     public String register() {
         if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
             this.user = new User();
@@ -135,13 +144,18 @@ public class UserController implements Serializable {
         //this.feedbackCM.storeFeedback(feedback);
     }
     
-    /*
-    private void storeCatalogs() {
-        this.productCatalogCM.storeProductCatalog(productsForSale);
-        this.productCatalogCM.storeProductCatalog(soldProducts);
-        this.productCatalogCM.storeProductCatalog(boughtProducts);
+    public String submitFeedback() {
+        if(this.feedbackContent != null && this.feedbackRating != null) {
+            Feedback newFeedback = new Feedback();
+            newFeedback.setAuthor(this.user);
+            newFeedback.setContent(this.feedbackContent);
+            newFeedback.setRating(this.feedbackRating);
+            this.feedback.add(newFeedback);
+            this.user.setFeedback(this.feedback);
+            userCM.updateUser(this.user);
+        }
+        return "";
     }
-    */
     
     public User getUser() {
         return user;
@@ -181,6 +195,30 @@ public class UserController implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public List<Feedback> getFeedback() {
+        return this.feedback;
+    }
+    
+    public void setFeedback(List<Feedback> feedback) {
+        this.feedback = feedback;
+    }
+    
+    public Double getFeedbackRating() {
+        return feedbackRating;
+    }
+
+    public void setFeedbackRating(Double feedbackRating) {
+        this.feedbackRating = feedbackRating;
+    }
+
+    public String getFeedbackContent() {
+        return feedbackContent;
+    }
+
+    public void setFeedbackContent(String feedbackContent) {
+        this.feedbackContent = feedbackContent;
     }
     
     public boolean isValidRegister(String un, String em, String pn, String pw) {

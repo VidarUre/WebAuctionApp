@@ -13,7 +13,10 @@
     </h:head>
     <h:body>
         <h1>Products</h1>
-        <p>Logged in as #{userController.username}</p>
+        <p>Logged in as #{userController.user.username}</p>
+        <h:form>
+            <h:commandButton id="goToUser" value="Go to your profile" action="#{userController.goToUser(userController.user.id)}" />
+        </h:form>
         <h:form>
             <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
         </h:form>

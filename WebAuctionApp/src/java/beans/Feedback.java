@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Stateless
 @Entity
 @NamedQueries({
-    //@NamedQuery(name = "Feedback.findByAuthorID", query = "SELECT f from Feedback f WHERE f.author_id = user.id")
+    @NamedQuery(name = "Feedback.findByAuthorId", query = "SELECT f FROM Feedback f WHERE f.author = :user")
 })
 public class Feedback implements Serializable{
     

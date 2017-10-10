@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import beans.Bid;
@@ -19,8 +14,6 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class BidCM {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;
     

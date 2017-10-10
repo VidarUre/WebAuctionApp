@@ -7,19 +7,13 @@ package controller;
 
 import beans.AuctionPlace;
 import beans.Feedback;
-import beans.Product;
 import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import beans.User;
-import database.FeedbackCM;
-import database.ProductCatalogCM;
 import database.UserCM;
 import java.util.List;
 import javax.inject.Inject;
@@ -115,8 +109,6 @@ public class UserController implements Serializable {
         return "sellerscreen";
     }
  
-    
-    
     public String register() {
         if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
             this.user = new User();
@@ -132,8 +124,6 @@ public class UserController implements Serializable {
             createCatalogs();
             
             this.userCM.storeUser(this.user);
-            
-            //storeCatalogs();
             
             return "login";
         } else return "register";
@@ -154,8 +144,6 @@ public class UserController implements Serializable {
         this.boughtProducts.setStatus("bought");
         this.boughtProducts.setOwner(this.user);
         this.user.setBoughtProducts(boughtProducts);
-        
-        //this.feedbackCM.storeFeedback(feedback);
     }
     
     public String submitFeedback() {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import beans.Bid;
@@ -62,14 +57,9 @@ public class ProductController implements Serializable {
     public ProductController() {
     }
     
-     public String placeBid() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-       
-            //Bid bid = bidCM.findBid(bid.getBid().getID());
-            if(product.getCurrentBid().getAmount() < this.newAmount) {
-                //Update bid
-                bidCM.UpdateBid(product.getCurrentBid(), this.newAmount);
+     public String placeBid() {   
+        if(product.getCurrentBid().getAmount() < this.newAmount) {
+            bidCM.UpdateBid(product.getCurrentBid(), this.newAmount);
             }
         return "product"; // The same product screen
     }
@@ -81,6 +71,9 @@ public class ProductController implements Serializable {
     
     public String goToProduct(long productId) {
         this.product = productCM.findProduct(productId);
+        ProductCatalog pc = this.product.getCatalog();
+        User seller = pc.getOwner();
+        this.userController.setSeller(seller);
         return "product";
     }
     
@@ -103,12 +96,7 @@ public class ProductController implements Serializable {
 
     
     public String goToSeller(){
-        ProductCatalog pc = this.product.getCatalog();
-        //Long sellerID = pc.getOwner().getId();
-        User seller = pc.getOwner();
-        //User user = userCM.getUserById(sellerID);
-        this.userController.setSeller(seller);
-        return this.userController.goToSeller(seller);
+        return this.userController.goToSeller(this.userController.getSeller());
     }
     
     

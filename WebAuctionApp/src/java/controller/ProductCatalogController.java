@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import beans.Bid;
 import beans.Product;
 import beans.ProductCatalog;
-import beans.User;
 import database.BidCM;
 import database.ProductCatalogCM;
 import javax.inject.Named;
@@ -16,10 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *

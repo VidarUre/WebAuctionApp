@@ -1,20 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
-import com.sun.istack.Nullable;
 import java.io.Serializable;
 import java.util.List;
-import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,8 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.Table;
 
 /**
@@ -34,7 +22,6 @@ import javax.persistence.Table;
 @Stateless
 @Entity
 @NamedQueries({
-    //@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
 })
 @Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this
@@ -78,7 +65,7 @@ public class User implements Serializable {
     }
 
     public double getRating() {
-        return rating;
+        return this.fetchAverageFeedback(this.feedback);
     }
 
     public void setRating(double rating) {
@@ -167,5 +154,14 @@ public class User implements Serializable {
 
     public void setBoughtProducts(ProductCatalog boughtProducts) {
         this.boughtProducts = boughtProducts;
+    }
+    
+    private Double fetchAverageFeedback(List<Feedback> feedback) {
+        Double sum = 0.0;
+        for(Feedback f : feedback) {
+            sum += f.getRating();
+        }
+        Double average = sum/feedback.size();
+        return average;
     }
 }

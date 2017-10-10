@@ -2,15 +2,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>#{userController.seller.username}'s Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <h:form>
+            <p><h:commandButton id="home" value="Home" action="#{userController.home}" /></p>
+        </h:form>
         <h1>#{userController.seller.username}'s Page</h1>
-        <h3>#{userController.seller.username}'s Average Feedback: #{userController.fetchAverageFeedback(userController.SFeedback)}%</h3>
+        <h3>#{userController.seller.username}'s Average Feedback: #{userController.seller.rating}%</h3>
         <h2>Leave feedback</h2>
         <h:form>
             <p>Rating(%): <h:inputText id="rating" value="#{userController.feedbackRating}" /></p>

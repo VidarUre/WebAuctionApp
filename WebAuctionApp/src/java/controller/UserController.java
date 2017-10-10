@@ -98,7 +98,6 @@ public class UserController implements Serializable {
     }
     
     public String goToUser(Long id) {
-        //this.user = userCM.getUserById(id);
         this.feedback = userCM.getFeedbackByUser(this.user);
         return "userscreen";
     }
@@ -155,6 +154,15 @@ public class UserController implements Serializable {
             userCM.updateUser(this.user);
         }
         return "";
+    }
+    
+    public Double fetchAverageFeedback() {
+        Double sum = 0.0;
+        for(Feedback f : this.feedback) {
+            sum += f.getRating();
+        }
+        Double average = sum/this.feedback.size();
+        return average;
     }
     
     public User getUser() {

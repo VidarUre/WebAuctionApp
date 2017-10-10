@@ -94,7 +94,9 @@ public class ProductCatalogController implements Serializable {
         if(this.product != null) {
             this.productsForSale = this.userController.getUser().getProductsForSale();
             this.productsForSale.addProduct(product);
-            productCatalogCM.updateProductCatalog(productsForSale);
+            this.userController.getUser().setProductsForSale(this.productsForSale);
+            this.product.setCatalog(this.productsForSale);
+            productCatalogCM.updateProductCatalog(this.productsForSale);
             result = "products";
         } else {
             result = "publishproduct";

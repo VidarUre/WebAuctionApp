@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import beans.Bid;
+import database.BidCM;
+import javax.inject.Inject;
 
 /**
  *
@@ -21,7 +23,13 @@ import beans.Bid;
 @SessionScoped
 public class BidController implements Serializable {
 
-    @EJB
+    @Inject
+    private ProductCatalogController productCatalogController;
+    
+    @EJB private BidCM bidCM;
+    
+    private double newBid;
+    
     private Bid bid;
 
     /**
@@ -30,16 +38,6 @@ public class BidController implements Serializable {
     public BidController() {
     }
     
-    public String placeBid() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        
-        Double incomingBid = Double.parseDouble(request.getParameter("newBid"));
-        if(incomingBid > bid.getAmount()) {
-            bid.setAmount(incomingBid);
-            // Update bid amount in database
-        }
-        return ""; // The same product screen
-    }
+   
     
 }

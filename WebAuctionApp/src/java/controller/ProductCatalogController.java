@@ -5,9 +5,11 @@
  */
 package controller;
 
+import beans.Bid;
 import beans.Product;
 import beans.ProductCatalog;
 import beans.User;
+import database.BidCM;
 import database.ProductCatalogCM;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -35,6 +37,7 @@ public class ProductCatalogController implements Serializable {
     private String name;
     private String picture; // May change
     private String features;
+    private Bid bid;
 
     private ProductCatalog productsForSale;
     private ProductCatalog soldProducts;
@@ -42,6 +45,9 @@ public class ProductCatalogController implements Serializable {
     
     @EJB
     private ProductCatalogCM productCatalogCM;
+    
+    @EJB 
+    private BidCM bidCM;
 
     /**
      * Creates a new instance of ProductCatalog
@@ -70,6 +76,13 @@ public class ProductCatalogController implements Serializable {
             }
             this.product.setRemainingTime(1000000);
             // Start nedtelling
+            
+            //Oppretter et bud med 0 i verdi
+            this.bid = new Bid();
+            this.bid.setAmount(0.0);
+            this.bid.setProduct(product);
+            this.product.setCurrentBid(bid);
+            
         }
         return this.product;
     }
@@ -128,4 +141,10 @@ public class ProductCatalogController implements Serializable {
     public void setFeatures(String features) {
         this.features = features;
     }
+
+    public Bid getBid() {
+        return bid;
+    }
+    
+    
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,7 +48,7 @@ public class Product implements Serializable{
     @ManyToOne
     private ProductCatalog catalog;
         
-    @OneToOne (orphanRemoval = true)
+    @OneToOne (cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Bid currentBid;
     
       /**

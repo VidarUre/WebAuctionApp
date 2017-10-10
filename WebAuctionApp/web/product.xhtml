@@ -52,9 +52,10 @@ and open the template in the editor.
                 </td>
             </tr>
         </table>
+        <p>Current bid: #{productController.bidAmount}</p>
         <h:form>
-            <p>Your bid: <h:inputText id="newbid" value="{bidController.bid.amount}" /></p>
-            <h:commandButton id="placebid" value="Place bid" action="{bidController.placebid}" />
+            <p>Your bid: <h:inputText id="newbid" value="#{productController.newAmount}" /></p>
+            <h:commandButton id="placebid" value="Place bid" action="#{productController.placeBid}" />
         </h:form>
     </h:body>
 </html>

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import beans.Bid;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import beans.Product;
+import database.BidCM;
 import database.ProductCM;
 import java.util.List;
 
@@ -29,14 +31,30 @@ public class ProductController implements Serializable {
     private String name;
     private String picture; // May change
     private String features;
+    private Bid bid;
+    private Double newAmount;
     
     @EJB
     ProductCM productCM;
+    
+    @EJB BidCM bidCM;
 
     /**
      * Creates a new instance of Product
      */
     public ProductController() {
+    }
+    
+     public String placeBid() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+       
+            //Bid bid = bidCM.findBid(bid.getBid().getID());
+            if(product.getCurrentBid().getAmount() < this.newAmount) {
+                //Update bid
+                bidCM.UpdateBid(product.getCurrentBid(), this.newAmount);
+            }
+        return "product"; // The same product screen
     }
     
     public List<Product> findAllProducts() {
@@ -101,6 +119,27 @@ public class ProductController implements Serializable {
     public void setFeatures(String features) {
         this.features = features;
     }
+    
+    public Bid getBid() {
+        return bid;
+    }
+    
+    public Double getBidAmount() {
+        return product.getCurrentBid().getAmount();
+    }
+    
+    public void setBid (Bid bid) {
+        this.bid = bid;
+    }
+
+    public Double getNewAmount() {
+        return newAmount;
+    }
+
+    public void setNewAmount(Double newAmount) {
+        this.newAmount = newAmount;
+    }
+    
     
     
     

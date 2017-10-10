@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 import java.io.Serializable;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
@@ -38,8 +30,6 @@ public class Product implements Serializable{
     private String name;
     private String picture; // May change
     private String features;
-    
-    private Double rating;
     
     private Boolean published;
     
@@ -89,14 +79,6 @@ public class Product implements Serializable{
         this.features = features;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public boolean getPublished() {
         return published;
     }
@@ -119,10 +101,6 @@ public class Product implements Serializable{
 
     public void setCurrentBid(Bid currentBid) {
         this.currentBid = currentBid;
-    }
-    
-     public void setRating(Double rating) {
-        this.rating = rating;
     }
 
     public void setRemainingTime(Long remainingTime) {

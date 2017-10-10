@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -49,10 +48,4 @@ public class ProductCM {
         product.setFeatures(feature);
         em.merge(feature);
     }
-    
-    public void UpdateRating(Product product, Double rating){
-        product.setRating(rating);
-        em.merge(product);  
-    }
-
 }

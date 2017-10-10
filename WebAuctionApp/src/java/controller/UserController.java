@@ -159,15 +159,6 @@ public class UserController implements Serializable {
         return "";
     }
     
-    public Double fetchAverageFeedback(List<Feedback> feedback) {
-        Double sum = 0.0;
-        for(Feedback f : feedback) {
-            sum += f.getRating();
-        }
-        Double average = sum/feedback.size();
-        return average;
-    }
-    
     public User getUser() {
         return user;
     }

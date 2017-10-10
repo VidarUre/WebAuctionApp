@@ -15,27 +15,30 @@
         <h1>Products</h1>
         <p>Logged in as #{userController.user.username}</p>
         <h:form>
+            <h:commandButton id="logOut" value="Log out" action="#{userController.logOut()}" />
+        </h:form>
+        <h:form>
             <h:commandButton id="goToUser" value="Go to your profile" action="#{userController.goToUser(userController.user.id)}" />
         </h:form>
         <h:form>
             <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
         </h:form>
+        <table>
         <!-- Filtering options -->
-        <ul>
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
-                <c:if test="#{product.published == true}">
-                    <li> <h:outputText value="#{product.name}" /></li>
-                    <li> <h:outputText value="#{product.remainingTime}" /></li>
-                    <c:if test="#{product.currentBid != null}">
-                        <li> <h:outputText value="#{product.currentBid}" /></li>
-                    </c:if>
-                </c:if>
-                <h:form>
-                    <h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" />
-                       <!-- Picture -->
-                </h:form>
+                <tr>
+                <c:when test="#{product.published eq true}">
+                    <td><b><h:outputText value="#{product.name}" /></b></td>
+                    <td><b>Time remaining:</b> <h:outputText value="#{product.remainingTime}" /></td>
+                    <td><b>Current bid:</b> <h:outputText value="#{product.currentBid.amount}" /></td>
+                    <h:form>
+                        <td><h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" /></td>
+                        <!-- Picture -->
+                    </h:form>
+                </c:when>
+                </tr>
             </ui:repeat>
-        </ul>
+        </table>
     </h:body>
 </html>
 

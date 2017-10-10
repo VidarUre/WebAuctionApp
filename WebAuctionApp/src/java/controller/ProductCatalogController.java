@@ -69,11 +69,7 @@ public class ProductCatalogController implements Serializable {
             this.product.setName(this.name);
             this.product.setPicture(this.picture);
             this.product.setFeatures(this.features);
-            if(shouldPublish == true) {
-                this.product.setPublished(true);
-            } else {
-                this.product.setPublished(false);
-            }
+            this.product.setPublished(shouldPublish);
             this.product.setRemainingTime(1000000);
             // Start nedtelling
             

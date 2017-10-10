@@ -92,6 +92,12 @@ public class UserController implements Serializable {
        return result; 
     }
     
+    public String logOut() {
+        this.user.setLoggedIn(false);
+        this.user = null;
+        return "login";
+    }
+    
     public String InitRegister(){
         this.user = new User();
         return "register";

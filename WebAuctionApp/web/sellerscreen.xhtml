@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>#{userController.seller.username}'s Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1>#{userController.seller.username}'s Page</h1>
+        <h3>#{userController.seller.username}'s Average Feedback: #{userController.fetchAverageFeedback(userController.SFeedback)}%</h3>
+        <h2>Leave feedback</h2>
+        <h:form>
+            <p>Rating(%): <h:inputText id="rating" value="#{userController.feedbackRating}" /></p>
+            <p><h:inputTextarea id="feedbackcontent" value="#{userController.feedbackContent}" /></p>
+            <p><h:commandButton id="submitFeedback" value="Submit Feedback" action="#{userController.submitFeedback}" /></p>
+        </h:form>
+        <h2>Feedback from other customers</h2>
+        <ui:repeat value="#{userController.SFeedback}" var="sFeedback">
+            <p><b><h:outputText value="#{sFeedback.author.username}" /></b></p>
+            <p>Rating: <h:outputText value="#{sFeedback.rating}" /></p>
+            <p> <h:outputText value="#{sFeedback.content}" /></p>
+        </ui:repeat>
+    </h:body>
+</html>

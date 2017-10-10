@@ -18,13 +18,16 @@ and open the template in the editor.
                 <td><image src="#{productController.picture}" id="#{productController.name}" alt="#{productController.name}" /></td>
                 <td>
                     <h2>About the seller</h2>
-                    <!--<h:commandButton id="gotoseller" value="Go to seller" action="{productController.goToSeller}" />-->
+                    <h:form>
+                        <h:commandButton id="gotoseller" value="Go to seller" action="#{productController.goToSeller()}" />
+                    </h:form>
+                    
                     <table>
                         <tr>
-                            <!--<td><b>Name: </b> {productController.seller.username}</td>
+                            <td><b>Name: </b> {productController.seller.username}</td>
                             <td><b>Rating: </b>{productController.seller.rating}</td>
                             <td><b>Phone number: </b> {productController.seller.phonenumber}</td>
-                            <td><b>Email: </b> {productContoller.seller.email}</td>-->
+                            <td><b>Email: </b> {productContoller.seller.email}</td>
                         </tr>
                     </table>
                 </td>

@@ -34,6 +34,7 @@ import javax.persistence.Table;
 @Stateless
 @Entity
 @NamedQueries({
+    //@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
 })
 @Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this

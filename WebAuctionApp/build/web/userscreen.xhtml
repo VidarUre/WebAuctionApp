@@ -5,18 +5,13 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>#{userController.username}'s Page</title>
+        <title>#{userController.user.username}'s Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <h1>#{userController.user.username}'s Page</h1>
-        <h3>#{userController.user.username}'s Average Feedback: #{userController.fetchAverageFeedback()}%</h3>
+        <h3>#{userController.user.username}'s Average Feedback: #{userController.fetchAverageFeedback(userController.feedback)}%</h3>
         <h2>Leave feedback</h2>
-        <h:form>
-            <p>Rating(%): <h:inputText id="rating" value="#{userController.feedbackRating}" /></p>
-            <p><h:inputTextarea id="feedbackcontent" value="#{userController.feedbackContent}" /></p>
-            <p><h:commandButton id="submitFeedback" value="Submit Feedback" action="#{userController.submitFeedback}" /></p>
-        </h:form>
         <h2>Feedback from other customers</h2>
         <ui:repeat value="#{userController.feedback}" var="feedback">
             <p><b><h:outputText value="#{feedback.author.username}" /></b></p>

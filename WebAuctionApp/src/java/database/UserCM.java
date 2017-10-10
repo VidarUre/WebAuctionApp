@@ -39,11 +39,11 @@ public class UserCM {
         return foundUser;
     }
     
-    public User getUserById(Long id) {
+    public User getUserById(User user) {
         User foundUser = null;
         Query createNamedQuery = getEntityManager().createNamedQuery("User.findById");
         
-        createNamedQuery.setParameter("id", id);
+        createNamedQuery.setParameter("id", user);
         
         if (createNamedQuery.getResultList().size() > 0) {
             foundUser = (User) createNamedQuery.getSingleResult();

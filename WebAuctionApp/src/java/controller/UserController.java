@@ -36,11 +36,13 @@ public class UserController implements Serializable {
     private AuctionPlace auctionPlace;
     
     private User user;
+    private User seller;
     
     private ProductCatalog productsForSale;
     private ProductCatalog soldProducts;
     private ProductCatalog boughtProducts;
-    private List<Feedback> feedback; 
+    private List<Feedback> feedback;
+    private List<Feedback> sFeedback;
     
     private String username;
     private String email;
@@ -108,6 +110,13 @@ public class UserController implements Serializable {
         return "userscreen";
     }
     
+    public String goToSeller(User seller){
+        this.sFeedback = userCM.getFeedbackByUser(seller);
+        return "sellerscreen";
+    }
+ 
+    
+    
     public String register() {
         if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
             this.user = new User();
@@ -155,19 +164,19 @@ public class UserController implements Serializable {
             newFeedback.setAuthor(this.user);
             newFeedback.setContent(this.feedbackContent);
             newFeedback.setRating(this.feedbackRating);
-            this.feedback.add(newFeedback);
-            this.user.setFeedback(this.feedback);
-            userCM.updateUser(this.user);
+            this.sFeedback.add(newFeedback);
+            this.seller.setFeedback(this.sFeedback);
+            userCM.updateUser(this.seller);
         }
         return "";
     }
     
-    public Double fetchAverageFeedback() {
+    public Double fetchAverageFeedback(List<Feedback> feedback) {
         Double sum = 0.0;
-        for(Feedback f : this.feedback) {
+        for(Feedback f : feedback) {
             sum += f.getRating();
         }
-        Double average = sum/this.feedback.size();
+        Double average = sum/feedback.size();
         return average;
     }
     
@@ -177,6 +186,14 @@ public class UserController implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    
+        public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
     }
 
     public String getUsername() {
@@ -222,6 +239,7 @@ public class UserController implements Serializable {
     public Double getFeedbackRating() {
         return feedbackRating;
     }
+    
 
     public void setFeedbackRating(Double feedbackRating) {
         this.feedbackRating = feedbackRating;
@@ -234,6 +252,16 @@ public class UserController implements Serializable {
     public void setFeedbackContent(String feedbackContent) {
         this.feedbackContent = feedbackContent;
     }
+    
+    
+    public List<Feedback> getSFeedback() {
+        return this.sFeedback;
+    }
+    
+    public void setSFeedback(List<Feedback> sFeedback) {
+        this.sFeedback = sFeedback;
+    }
+    
     
     public boolean isValidRegister(String un, String em, String pn, String pw) {
         return isValidUsername(un) && isValidEmail(em) && isValidPhonenumber(pn) && isValidPassword(pw);

@@ -13,9 +13,14 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import beans.Product;
+import beans.ProductCatalog;
+import beans.User;
 import database.BidCM;
 import database.ProductCM;
+import database.ProductCatalogCM;
+import database.UserCM;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  *
@@ -33,6 +38,18 @@ public class ProductController implements Serializable {
     private String features;
     private Bid bid;
     private Double newAmount;
+    
+    @Inject
+    private UserController userController;
+    
+    @Inject
+    private ProductCatalogController pcc;
+    
+    @Inject
+    private UserCM userCM;
+    
+    @EJB
+    ProductCatalogCM productCatalogCM;
     
     @EJB
     ProductCM productCM;
@@ -83,6 +100,17 @@ public class ProductController implements Serializable {
         }
         return this.product;
     }
+
+    
+    public String goToSeller(){
+        ProductCatalog pc = this.product.getCatalog();
+        //Long sellerID = pc.getOwner().getId();
+        User seller = pc.getOwner();
+        //User user = userCM.getUserById(sellerID);
+        this.userController.setSeller(seller);
+        return this.userController.goToSeller(seller);
+    }
+    
     
     public boolean productIsValid(String name, String picture, String features) {
         return name != null && name.length() > 0 && picture != null && picture.length() > 0 && features != null && features.length() > 0;

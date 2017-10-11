@@ -12,7 +12,7 @@
             <p>Username: <h:inputText id="username" value="#{userController.username}" /></p>
             <p>Email: <h:inputText id="email" value="#{userController.email}" /></p>
             <p>Phone number: <h:inputText id="phonenumber" value="#{userController.phonenumber}" /></p>
-            <p>Password: <h:inputText id="password" value="#{userController.password}" /></p>
+            <p>Password: <h:inputSecret id="password" value="#{userController.password}" /></p>
             <h:commandButton id="register" value="Register" action="#{userController.register}" />
         </h:form>
     </body>

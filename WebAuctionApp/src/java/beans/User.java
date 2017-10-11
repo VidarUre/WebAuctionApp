@@ -54,7 +54,8 @@ public class User implements Serializable {
     private List<Feedback> feedback;
     
     public User() {
-    }
+    }   
+    
     
     public Long getId() {
         return ID;
@@ -158,6 +159,9 @@ public class User implements Serializable {
     
     private Double fetchAverageFeedback(List<Feedback> feedback) {
         Double sum = 0.0;
+        if(feedback.isEmpty()){
+            return 0.0;
+        }
         for(Feedback f : feedback) {
             sum += f.getRating();
         }

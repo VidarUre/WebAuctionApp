@@ -157,6 +157,11 @@ public class User implements Serializable {
         this.boughtProducts = boughtProducts;
     }
     
+    /**
+     * Calculates the average feedback from all the user's feedback.
+     * @param feedback The list of feedback
+     * @return An average score of the user's feedback
+     */
     private Double fetchAverageFeedback(List<Feedback> feedback) {
         Double sum = 0.0;
         if(feedback.isEmpty()){

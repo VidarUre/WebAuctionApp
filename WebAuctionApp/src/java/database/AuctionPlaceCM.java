@@ -14,9 +14,6 @@ import javax.persistence.PersistenceContext;
 @Stateless
 @LocalBean
 public class AuctionPlaceCM {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     
     @PersistenceContext(unitName = "WebAuctionAppPU")
     private EntityManager em;

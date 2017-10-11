@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>#{userController.user.username}'s Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,7 +14,6 @@
         </h:form>
         <h1>#{userController.user.username}'s Page</h1>
         <h3>#{userController.user.username}'s Average Feedback: #{userController.user.rating}%</h3>
-        <h2>Leave feedback</h2>
         <h2>Feedback from other customers</h2>
         <ui:repeat value="#{userController.feedback}" var="feedback">
             <p><b><h:outputText value="#{feedback.author.username}" /></b></p>

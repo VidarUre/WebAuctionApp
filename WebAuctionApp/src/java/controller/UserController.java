@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import beans.AuctionPlace;
@@ -19,7 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- *
+ * 
  * @author TorkelNes
  */
 @Named(value = "userController")
@@ -59,14 +54,26 @@ public class UserController implements Serializable {
         
     }
 
+    /**
+     * Navigates to the register page
+     * @return the register page
+     */
     public String navigate() {
         return "register";
     }
     
+    /**
+     * Navigates to the home page
+     * @return the home page
+     */
     public String home() {
         return "products";
     }
     
+    /**
+     * Logs in the user
+     * @return the product page if success, login page if not
+     */
     public String login() {
         String result;
         boolean isValid;
@@ -88,27 +95,49 @@ public class UserController implements Serializable {
        return result; 
     }
     
+    /**
+     * Logs out the user.
+     * @return the login page
+     */
     public String logOut() {
         this.user.setLoggedIn(false);
         this.user = null;
         return "login";
     }
     
+    /**
+     * Initializes the registering
+     * @return the register page
+     */
     public String InitRegister(){
         this.user = new User();
         return "register";
     }
     
+    /**
+     * Goes to a specific user's profile
+     * @param id The ID of the specific user
+     * @return the userscreen page
+     */
     public String goToUser(Long id) {
         this.feedback = userCM.getFeedbackByUser(this.user);
         return "userscreen";
     }
     
+    /**
+     * Goes to a specific seller's profile
+     * @param seller the specific seller
+     * @return  the sellerscreen page
+     */
     public String goToSeller(User seller){
         this.sFeedback = userCM.getFeedbackByUser(seller);
         return "sellerscreen";
     }
  
+    /**
+     * Registers a new user.
+     * @return The login page if successful, register page if not
+     */
     public String register() {
         if(isValidRegister(this.getUsername(), this.getEmail(), this.getPhonenumber(), this.getPassword())) {
             this.user = new User();
@@ -129,6 +158,9 @@ public class UserController implements Serializable {
         } else return "register";
     }
     
+    /**
+     * Creates all the user's product catalogs.
+     */
     private void createCatalogs() {
         this.productsForSale = new ProductCatalog();
         this.productsForSale.setStatus("forSale");
@@ -146,6 +178,10 @@ public class UserController implements Serializable {
         this.user.setBoughtProducts(boughtProducts);
     }
     
+    /**
+     * Submits a feedback.
+     * @return  The same page.
+     */
     public String submitFeedback() {
         if(this.feedbackContent != null && this.feedbackRating != null) {
             Feedback newFeedback = new Feedback();
@@ -241,23 +277,50 @@ public class UserController implements Serializable {
         this.sFeedback = sFeedback;
     }
     
-    
+    /**
+     * Checks if the info from the registering is valid.
+     * @param un username
+     * @param em email
+     * @param pn phone number
+     * @param pw password
+     * @return true if valid, false if not
+     */
     public boolean isValidRegister(String un, String em, String pn, String pw) {
         return isValidUsername(un) && isValidEmail(em) && isValidPhonenumber(pn) && isValidPassword(pw);
     }
     
+    /**
+     * Checks if given username is valid. (NOT IMPLEMENTED)
+     * @param username The username
+     * @return true if valid, false if not
+     */
     private boolean isValidUsername(String username) {
         return true;
     }
     
+    /**
+     * Checks if given password is valid. (NOT IMPLEMENTED)
+     * @param password The password
+     * @return true if valid, false if not
+     */
     private boolean isValidPassword(String password) {
         return true;
     }
     
+    /**
+     * Checks if given email is valid. (NOT IMPLEMENTED)
+     * @param email The email
+     * @return true if valid, false if not
+     */
     private boolean isValidEmail(String email) {
         return true;
     }
     
+    /**
+     * Checks if given phone number is valid. (NOT IMPLEMENTED)
+     * @param phonenumber The phone number
+     * @return true if valid, false if not
+     */
     private boolean isValidPhonenumber(String phonenumber) {
         return true;
     }

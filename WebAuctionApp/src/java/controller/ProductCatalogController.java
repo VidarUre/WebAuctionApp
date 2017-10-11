@@ -13,7 +13,7 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 
 /**
- *
+ * Handles the product catalogs.
  * @author TorkelNes
  */
 @Named(value = "productCatalogController")
@@ -46,14 +46,27 @@ public class ProductCatalogController implements Serializable {
     public ProductCatalogController() {
     }
     
+    /**
+     * Publishes the product.
+     * @return the resulting page of submitProduct
+     */
     public String publishProduct() {
         return submitProduct(true);
     }
     
+    /**
+     * Saves the product without publishing.
+     * @return the resulting page of submitProduct
+     */
     public String saveWithoutPublishing() {
         return submitProduct(false);
     }
     
+    /**
+     * Creates a product.
+     * @param shouldPublish true if product should be published, false if not
+     * @return the created product
+     */
     public Product createProduct(boolean shouldPublish) {
         if(productIsValid(this.name, this.picture, this.features)) {
             this.product = new Product();
@@ -74,6 +87,11 @@ public class ProductCatalogController implements Serializable {
         return this.product;
     }
     
+    /**
+     * Submits a product for storing.
+     * @param shouldPublish true if product should be published, false if not
+     * @return products page if success, publishproduct page if not
+     */
     private String submitProduct(Boolean shouldPublish) {
         String result;
         
@@ -91,10 +109,21 @@ public class ProductCatalogController implements Serializable {
         return result;
     }
     
+    /**
+     * Checks if a given product has valid data.
+     * @param name The product's name
+     * @param picture The product's picture
+     * @param features The product's features info
+     * @return true if valid, false if not
+     */
     public boolean productIsValid(String name, String picture, String features) {
         return name != null && name.length() > 0 && picture != null && picture.length() > 0 && features != null && features.length() > 0;
     }
     
+    /**
+     * Adds a product to the "for sale" catalog.
+     * @param product The product to be added
+     */
     public void addProduct(Product product) {
         productsForSale.addProduct(product);
     }

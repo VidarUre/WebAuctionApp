@@ -13,7 +13,7 @@
             <p><h:commandButton id="home" value="Home" action="#{userController.home}" /></p>
         </h:form>
         <h1>#{userController.seller.username}'s Page</h1>
-        <h3>#{userController.user.username}'s Average Feedback: #{userController.user.rating}%</h3>
+        <h3>#{userController.seller.username}'s Average Feedback: #{userController.seller.rating}%</h3>
         <h2>Leave feedback</h2>
         <h:form>
             <p>Rating(%): <h:inputText id="rating" value="#{userController.feedbackRating}" /></p>

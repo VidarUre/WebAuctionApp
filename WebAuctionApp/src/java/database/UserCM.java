@@ -63,10 +63,6 @@ public class UserCM {
         em.remove(user);
     }
     
-    public boolean isValidLogin(String username, String password) {
-       return true;
-    }
-    
     public void updateUser(User user) {
         em.merge(user);
     }

@@ -26,15 +26,17 @@
         <!-- Filtering options -->
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
                 <tr>
-                <c:when test="#{product.published eq true}">
-                    <td><b><h:outputText value="#{product.name}" /></b></td>
-                    <td><b>Time remaining:</b> <h:outputText value="#{product.remainingTime}" /></td>
-                    <td><b>Current bid:</b> <h:outputText value="#{product.currentBid.amount}" /></td>
-                    <h:form>
-                        <td><h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" /></td>
-                        <!-- Picture -->
-                    </h:form>
-                </c:when>
+                    <c:choose>
+                    <c:when test="#{product.published}">
+                        <td><b><h:outputText value="#{product.name}" /></b></td>
+                        <td><b>Time remaining:</b> <h:outputText value="#{product.remainingTime}" /></td>
+                        <td><b>Current bid:</b> <h:outputText value="#{product.currentBid.amount}" /></td>
+                        <h:form>
+                            <td><h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" /></td>
+                            <!-- Picture -->
+                        </h:form>
+                    </c:when>
+                    </c:choose>
                 </tr>
             </ui:repeat>
         </table>

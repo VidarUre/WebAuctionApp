@@ -6,7 +6,8 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>#{product.name}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -52,9 +53,13 @@ and open the template in the editor.
         </table>
         <p><b>Current bid:</b> #{productController.bidAmount}</p>
         <p><b>Time remaining:</b> #{productController.product.remainingTime}</p>
-        <h:form>
-            <p>Your bid: <h:inputText id="newbid" value="#{productController.newAmount}" /></p>
-            <h:commandButton id="placebid" value="Place bid" action="#{productController.placeBid}" />
-        </h:form>
+        <c:choose>
+        <c:when test="#{userController.seller.username ne userController.user.username}">
+            <h:form>
+                <p>Your bid: <h:inputText id="newbid" value="#{productController.newAmount}" /></p>
+                <h:commandButton id="placebid" value="Place bid" action="#{productController.placeBid}" />
+            </h:form>
+        </c:when>
+        </c:choose>
     </h:body>
 </html>

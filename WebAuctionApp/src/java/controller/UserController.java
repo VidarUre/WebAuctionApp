@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import beans.User;
 import database.UserCM;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 /**
@@ -21,8 +23,6 @@ import javax.inject.Inject;
 @ManagedBean
 @SessionScoped
 public class UserController implements Serializable {
-
-    private AuctionPlace auctionPlace;
     
     private User user;
     private User seller;
@@ -78,11 +78,15 @@ public class UserController implements Serializable {
         String result;
         boolean isValid;
         
-        isValid = this.userCM.isValidLogin(this.username, this.password);
+        isValid = isValidLogin(this.username, this.password);
         
         if(isValid) {
             this.user = this.userCM.findUserByUsername(this.getUsername());
-            this.user.setLoggedIn(true);
+            if(!passwordMatches(this.user, this.password)) {
+                this.user = null;
+            } else {
+                this.user.setLoggedIn(true);
+            }
             if(user != null) {
                 result = "/products";
             } else {
@@ -278,6 +282,26 @@ public class UserController implements Serializable {
     }
     
     /**
+     * Checks if the given login credentials are of valid format
+     * @param username The username
+     * @param password The password
+     * @return true if valid, false if not
+     */
+    public boolean isValidLogin(String username, String password) {
+       return username != null && username.trim().length() > 0 && password != null && password.trim().length() > 0;
+    }
+    
+    /**
+     * Checks if the given passord matches that of the user
+     * @param user The user
+     * @param password The given password
+     * @return true if passwords match, false if not
+     */
+    public boolean passwordMatches(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+    
+    /**
      * Checks if the info from the registering is valid.
      * @param un username
      * @param em email
@@ -290,38 +314,40 @@ public class UserController implements Serializable {
     }
     
     /**
-     * Checks if given username is valid. (NOT IMPLEMENTED)
+     * Checks if given username is valid.
      * @param username The username
      * @return true if valid, false if not
      */
     private boolean isValidUsername(String username) {
-        return true;
+        return username != null && username.trim().length() > 0 && username.length() < 20;
     }
     
     /**
-     * Checks if given password is valid. (NOT IMPLEMENTED)
+     * Checks if given password is valid.
      * @param password The password
      * @return true if valid, false if not
      */
     private boolean isValidPassword(String password) {
-        return true;
+        return password != null && password.trim().length() > 0 && password.length() < 20;
     }
     
     /**
-     * Checks if given email is valid. (NOT IMPLEMENTED)
+     * Checks if given email is valid.
      * @param email The email
      * @return true if valid, false if not
      */
     private boolean isValidEmail(String email) {
-        return true;
+        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher mat = pattern.matcher(email);
+        return mat.matches();
     }
     
     /**
-     * Checks if given phone number is valid. (NOT IMPLEMENTED)
+     * Checks if given phone number is valid.
      * @param phonenumber The phone number
      * @return true if valid, false if not
      */
     private boolean isValidPhonenumber(String phonenumber) {
-        return true;
+        return phonenumber != null && phonenumber.trim().length() > 0 && phonenumber.trim().length() < 20 && phonenumber.matches("[0-9]+");
     }
 }

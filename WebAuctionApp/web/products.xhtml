@@ -9,37 +9,71 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Browse Products</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
-        <h1>Products</h1>
-        <p>Logged in as #{userController.user.username}</p>
         <h:form>
-            <h:commandButton id="logOut" value="Log out" action="#{userController.logOut()}" />
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="WebAuctionApp/faces/products.xhtml"> WebAuctionApp </a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <h:commandLink class="btn btn-link" value="#{userController.user.username}'s profil" action ="#{userController.goToUser(userController.user.id)}" />
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <h:commandButton class="btn btn-danger navbar-btn" id="logOut" value="Log Out" action ="#{userController.logOut()}" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
         </h:form>
-        <h:form>
-            <h:commandButton id="goToUser" value="Go to your profile" action="#{userController.goToUser(userController.user.id)}" />
-        </h:form>
-        <h:form>
-            <h:commandButton id="publishProduct" value="Publish product" action="publishproduct" />
-        </h:form>
-        <table>
+        
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-md-offset-1">
+        
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Products  </div>
+            <div class="panel-body">
+        <div class="table table-responsive">
+            <table class="table table-striped" width="75%">
+                <tr>
+                    <th> Product name </th>
+                    <th> Time remaining</th>
+                    <th> Current bid</th>
+                    <th>                     
+                    <h:form>
+                    <h:commandButton class="btn btn-success" id="publishProduct" value="Publish Product" action="publishproduct" />
+                    </h:form>
+                    </th>
+                </tr>
         <!-- Filtering options -->
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
                 <tr>
                     <c:choose>
                     <c:when test="#{!product.published}"> <!-- Noe galt her -->
-                        <td><b><h:outputText value="#{product.name}" /></b></td>
-                        <td><b>Time remaining:</b> <h:outputText value="#{product.remainingTime}" /></td>
-                        <td><b>Current bid:</b> <h:outputText value="#{product.currentBid.amount}" /></td>
+                        <td><h:outputText value="#{product.name}" /></td>
+                        <td><h:outputText value="#{product.remainingTime}" /></td>
+                        <td><h:outputText value="#{product.currentBid.amount}" /></td>
                         <h:form>
-                            <td><h:commandButton id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" /></td>
+                            <td><h:commandButton class ="btn btn-default" id="productname" value="Go to product" action="#{productController.goToProduct(product.id)}" /></td>
                             <!-- Picture -->
                         </h:form>
                     </c:when>
                     </c:choose>
                 </tr>
             </ui:repeat>
-        </table>
+            </table>
+            </div>
+        </div>
+       </div>
+                </div>
+            </div>
     </h:body>
 </html>
 

@@ -2,6 +2,7 @@ package controller;
 
 import beans.AuctionPlace;
 import beans.Feedback;
+import beans.Product;
 import beans.ProductCatalog;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import beans.User;
+import database.BidCM;
 import database.UserCM;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,6 +34,7 @@ public class UserController implements Serializable {
     private ProductCatalog boughtProducts;
     private List<Feedback> feedback;
     private List<Feedback> sFeedback;
+    private Double newAmount;
     
     private String username;
     private String email;
@@ -43,6 +46,9 @@ public class UserController implements Serializable {
     
     @EJB
     private UserCM userCM;
+    
+    @EJB 
+    BidCM bidCM;
     
     @Inject
     ProductCatalogController pgController;
@@ -180,6 +186,18 @@ public class UserController implements Serializable {
         this.boughtProducts.setStatus("bought");
         this.boughtProducts.setOwner(this.user);
         this.user.setBoughtProducts(boughtProducts);
+    }
+    
+    /**
+     * Places a new bid on the product.
+     * @param product The product to bid on
+     * @return The same page of the product
+     */
+    public String placeBid(Product product) {   
+        if(product.getCurrentBid().getAmount() < this.newAmount) {
+            bidCM.UpdateBid(product.getCurrentBid(), this.newAmount, this.user);
+            }
+        return "product"; // The same product screen
     }
     
     /**
@@ -349,5 +367,13 @@ public class UserController implements Serializable {
      */
     private boolean isValidPhonenumber(String phonenumber) {
         return phonenumber != null && phonenumber.trim().length() > 0 && phonenumber.trim().length() < 20 && phonenumber.matches("[0-9]+");
+    }
+    
+    public Double getNewAmount() {
+        return newAmount;
+    }
+
+    public void setNewAmount(Double newAmount) {
+        this.newAmount = newAmount;
     }
 }

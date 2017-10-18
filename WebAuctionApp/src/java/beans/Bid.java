@@ -23,6 +23,9 @@ public class Bid implements Serializable{
     @OneToOne (mappedBy="currentBid")
     private Product product;
     
+    @OneToOne
+    private User bidder;
+    
     private Double amount;
     
     public Bid() {
@@ -50,5 +53,13 @@ public class Bid implements Serializable{
 
     public void setID(Long ID) {
         this.ID = ID;
+    }
+    
+    public User getBidder() {
+        return bidder;
+    }
+
+    public void setBidder(User bidder) {
+        this.bidder = bidder;
     }
 }

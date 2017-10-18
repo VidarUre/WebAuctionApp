@@ -27,7 +27,7 @@
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
                 <tr>
                     <c:choose>
-                    <c:when test="#{product.published}">
+                    <c:when test="#{!product.published}"> <!-- Noe galt her -->
                         <td><b><h:outputText value="#{product.name}" /></b></td>
                         <td><b>Time remaining:</b> <h:outputText value="#{product.remainingTime}" /></td>
                         <td><b>Current bid:</b> <h:outputText value="#{product.currentBid.amount}" /></td>

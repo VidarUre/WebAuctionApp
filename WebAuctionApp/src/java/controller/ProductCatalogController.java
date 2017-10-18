@@ -80,6 +80,7 @@ public class ProductCatalogController implements Serializable {
             //Oppretter et bud med 0 i verdi
             this.bid = new Bid();
             this.bid.setAmount(0.0);
+            this.bid.setBidder(null);
             this.bid.setProduct(product);
             this.product.setCurrentBid(bid);
             

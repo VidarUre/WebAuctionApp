@@ -56,8 +56,8 @@ and open the template in the editor.
         <c:choose>
         <c:when test="#{userController.seller.username ne userController.user.username}">
             <h:form>
-                <p>Your bid: <h:inputText id="newbid" value="#{productController.newAmount}" /></p>
-                <h:commandButton id="placebid" value="Place bid" action="#{productController.placeBid}" />
+                <p>Your bid: <h:inputText id="newbid" value="#{userController.newAmount}" /></p>
+                <h:commandButton id="placebid" value="Place bid" action="#{userController.placeBid(productController.product)}" />
             </h:form>
         </c:when>
         </c:choose>

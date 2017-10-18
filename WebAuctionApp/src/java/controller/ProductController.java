@@ -30,7 +30,6 @@ public class ProductController implements Serializable {
     private String picture; // May change
     private String features;
     private Bid bid;
-    private Double newAmount;
     
     @Inject
     private UserController userController;
@@ -46,24 +45,11 @@ public class ProductController implements Serializable {
     
     @EJB
     ProductCM productCM;
-    
-    @EJB BidCM bidCM;
 
     /**
      * Creates a new instance of Product
      */
     public ProductController() {
-    }
-    
-    /**
-     * Places a new bid on the product.
-     * @return The same page of the product
-     */
-    public String placeBid() {   
-        if(product.getCurrentBid().getAmount() < this.newAmount) {
-            bidCM.UpdateBid(product.getCurrentBid(), this.newAmount);
-            }
-        return "product"; // The same product screen
     }
     
     /**
@@ -86,28 +72,6 @@ public class ProductController implements Serializable {
         User seller = pc.getOwner();
         this.userController.setSeller(seller);
         return "product";
-    }
-    
-    /**
-     * Creates a product.
-     * @param shouldPublish true if it should be published, false if not
-     * @return The created product
-     */
-    public Product createProduct(boolean shouldPublish) {
-        if(productIsValid(this.name, this.picture, this.features)) {
-            this.product = new Product();
-            this.product.setName(this.name);
-            this.product.setPicture(this.picture);
-            this.product.setFeatures(this.features);
-            if(shouldPublish == true) {
-                this.product.setPublished(true);
-            } else {
-                this.product.setPublished(false);
-            }
-            this.product.setRemainingTime(1000000);
-            // Start nedtelling
-        }
-        return this.product;
     }
 
     /**
@@ -172,16 +136,4 @@ public class ProductController implements Serializable {
     public void setBid (Bid bid) {
         this.bid = bid;
     }
-
-    public Double getNewAmount() {
-        return newAmount;
-    }
-
-    public void setNewAmount(Double newAmount) {
-        this.newAmount = newAmount;
-    }
-    
-    
-    
-    
 }

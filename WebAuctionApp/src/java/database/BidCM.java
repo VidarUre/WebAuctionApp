@@ -1,6 +1,7 @@
 package database;
 
 import beans.Bid;
+import beans.User;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -27,8 +28,9 @@ public class BidCM {
         return bid;
     }
      
-    public void UpdateBid(Bid bid, Double amount){
+    public void UpdateBid(Bid bid, Double amount, User bidder){
         bid.setAmount(amount);
+        bid.setBidder(bidder);
         em.merge(bid);
     }
 

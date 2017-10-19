@@ -1,6 +1,5 @@
 package controller;
 
-import beans.AuctionPlace;
 import beans.Feedback;
 import beans.Product;
 import beans.ProductCatalog;

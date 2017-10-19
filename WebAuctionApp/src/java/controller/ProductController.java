@@ -8,7 +8,6 @@ import javax.ejb.EJB;
 import beans.Product;
 import beans.ProductCatalog;
 import beans.User;
-import database.BidCM;
 import database.ProductCM;
 import database.ProductCatalogCM;
 import database.UserCM;

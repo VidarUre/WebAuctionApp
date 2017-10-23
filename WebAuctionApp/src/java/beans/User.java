@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -133,6 +134,7 @@ public class User implements Serializable {
         this.auctionplace = auctionplace;
     }
     
+    @XmlTransient
     public ProductCatalog getProductsForSale() {
         return productsForSale;
     }
@@ -141,6 +143,7 @@ public class User implements Serializable {
         this.productsForSale = productsForSale;
     }
     
+    @XmlTransient
     public ProductCatalog getSoldProducts() {
         return soldProducts;
     }
@@ -149,6 +152,7 @@ public class User implements Serializable {
         this.soldProducts = soldProducts;
     }
     
+    @XmlTransient
     public ProductCatalog getBoughtProducts() {
         return boughtProducts;
     }

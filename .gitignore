@@ -1,8 +1,14 @@
 /WebAuctionApp/nbproject/private/
 /WebAuctionApp/build/
 /WebAuctionApp/dist/
-WebAuctionApp/nbproject/project.properties
-WebAuctionApp/build/web/WEB-INF/classes/database/UserCM.class
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
 *.class
 *.properties
-WebAuctionApp/build/web/WEB-INF/classes/beans/User_.class
+WebAuctionApp/nbproject/private/private.properties

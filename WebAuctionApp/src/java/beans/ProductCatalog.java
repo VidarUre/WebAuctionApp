@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -50,6 +51,7 @@ public class ProductCatalog implements Serializable{
         this.ID = ID;
     }
 
+    @XmlTransient
     public List<Product> getProducts() {
         return products;
     }

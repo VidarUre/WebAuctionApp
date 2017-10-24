@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
 })
 @Table(name = "\"User\"") //User is a reservered SQL keyword - this escapes this
+@XmlRootElement
 public class User implements Serializable {
     
     @Id
@@ -102,6 +104,7 @@ public class User implements Serializable {
         return ""; // "SUCCESS" or "FAIL"
     }
 
+    @XmlTransient
     public List<Feedback> getFeedback() {
         return feedback;
     }

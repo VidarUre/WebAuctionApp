@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -15,6 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Stateless
 @Entity
+@XmlRootElement
 public class Bid implements Serializable{
     
     @Id

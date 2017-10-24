@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -19,6 +20,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Feedback.findByAuthorId", query = "SELECT f FROM Feedback f WHERE f.author = :user")
 })
+@XmlRootElement
 public class Feedback implements Serializable{
     
     @Id

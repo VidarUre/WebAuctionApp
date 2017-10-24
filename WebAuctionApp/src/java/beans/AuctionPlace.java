@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -15,6 +17,7 @@ import javax.persistence.OneToMany;
  */
 @Stateless
 @Entity
+@XmlRootElement
 public class AuctionPlace implements Serializable{
     
     @Id
@@ -27,6 +30,7 @@ public class AuctionPlace implements Serializable{
     public AuctionPlace() {
     }
     
+    @XmlTransient
     public List<User> getUsers() {
         return users;
     }

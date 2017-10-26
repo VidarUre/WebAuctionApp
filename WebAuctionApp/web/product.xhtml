@@ -53,6 +53,7 @@ and open the template in the editor.
         </table>
         <p><b>Current bid:</b> #{productController.bidAmount}</p>
         <p><b>Time remaining:</b> #{productController.product.remainingTime}</p>
+        
         <c:choose>
         <c:when test="#{userController.seller.username ne userController.user.username}">
             <h:form>
@@ -60,6 +61,12 @@ and open the template in the editor.
                 <h:commandButton id="placebid" value="Place bid" action="#{userController.placeBid(productController.product)}" />
             </h:form>
         </c:when>
+            <c:otherwise>
+                <h:form>
+                    <h:commandButton id="endAuction" value="End Auction" action="#{userController.endAuction(productController.product)}"/>
+                </h:form>
+            </c:otherwise>
         </c:choose>
+        
     </h:body>
 </html>

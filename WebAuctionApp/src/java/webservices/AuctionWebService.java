@@ -1,10 +1,9 @@
 package webservices;
 
-import beans.Bid;
 import beans.Product;
 import java.util.List;
-//import javax.jms.Message;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
@@ -16,6 +15,8 @@ import javax.jws.soap.SOAPBinding.Style;
 @WebService
 @SOAPBinding(style = Style.DOCUMENT)
 public interface AuctionWebService {
-    @WebMethod List<Product> getActiveProducts();
-    @WebMethod Message bidForProduct(Bid newBid);
+    @WebMethod(operationName = "getActiveProducts")
+    List<Product> getActiveProducts();
+    @WebMethod(operationName = "bidForProduct")
+    Message bidForProduct(@WebParam(name = "bidderName") String bidderName, @WebParam(name = "productId") long productId, double amount);
 }

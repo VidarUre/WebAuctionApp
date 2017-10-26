@@ -1,21 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webservices;
 
-import beans.Bid;
 import beans.Product;
-import controller.ProductController;
+import beans.User;
 import controller.UserController;
 import database.ProductCM;
+import database.UserCM;
 import java.util.ArrayList;
 import java.util.List;
-//import javax.jms.Message;
+import javax.inject.Inject;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -26,6 +23,9 @@ import javax.persistence.TypedQuery;
 public class AuctionWebServiceImpl implements AuctionWebService {
     
     ProductCM productCM;
+    UserCM userCM;
+    
+    @Inject
     UserController userController;
     
     @PersistenceContext(unitName = "WebAuctionAppPU")
@@ -33,7 +33,6 @@ public class AuctionWebServiceImpl implements AuctionWebService {
     
     @Override
     public List<Product> getActiveProducts() {
-        //productCM = new ProductCM();
         List<Product> allProducts = findAllProducts();
         List<Product> activeProducts = new ArrayList<>();
         for(Product p : allProducts) {
@@ -45,12 +44,15 @@ public class AuctionWebServiceImpl implements AuctionWebService {
     }
     
     @Override
-    public Message bidForProduct(Bid newBid) {
+    public Message bidForProduct(@WebParam(name = "bidderName") String bidderName, @WebParam(name = "productId") long productId, @WebParam(name = "amount") double amount) {
+        User bidder = findUserByUsername(bidderName);
+        Product product = findProduct(productId);
+        
         Message successMessage = new Message();
         Message failureMessage = new Message();
         
-        String successMessageBody = "Customer " + newBid.getBidder() + "'s bid has successfully been placed for product " + newBid.getProduct();
-        String failureMessageBody = "The bid by customer " + newBid.getBidder() + " has not been placed on product " + newBid.getProduct();
+        String successMessageBody = "Customer " + bidderName + "'s bid has successfully been placed for product " + product.getName();
+        String failureMessageBody = "The bid by customer " + bidderName + " has not been placed on product " + product.getName();
         
         successMessage.setExplanation(successMessageBody);
         successMessage.setStatusCode("OK");
@@ -58,9 +60,9 @@ public class AuctionWebServiceImpl implements AuctionWebService {
         failureMessage.setStatusCode("FAIL");
         
         try {
-            userController.setUser(newBid.getBidder());
-            userController.setNewAmount(newBid.getAmount());
-            userController.placeBid(newBid.getProduct());
+            userController.setUser(bidder);
+            userController.setNewAmount(amount);
+            userController.placeBid(product);
             return successMessage;
         } catch(Exception e) {
             return failureMessage;
@@ -71,5 +73,22 @@ public class AuctionWebServiceImpl implements AuctionWebService {
         TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
         List<Product> allProducts = query.getResultList();
         return allProducts;
+    }
+    
+    public Product findProduct(Long id) {
+        Product product = em.find(Product.class, id);
+        return product;
+    }
+    
+    public User findUserByUsername(String username) {
+        User foundUser = null;
+        Query createNamedQuery = em.createNamedQuery("User.findByUsername");
+        
+        createNamedQuery.setParameter("username", username);
+
+        if (createNamedQuery.getResultList().size() > 0) {
+            foundUser = (User) createNamedQuery.getSingleResult();
+        }
+        return foundUser;
     }
 }

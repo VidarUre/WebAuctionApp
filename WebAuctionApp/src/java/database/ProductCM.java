@@ -39,6 +39,11 @@ public class ProductCM {
         em.merge(product);
     }
     
+    public void UpdatePublished(Product product, boolean published){
+        product.setPublished(published);
+        em.merge(product);
+    }
+    
     public void UpdateFeatures(Product product, String feature){
         product.setFeatures(feature);
         em.merge(feature);

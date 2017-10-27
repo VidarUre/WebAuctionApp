@@ -63,7 +63,7 @@ and open the template in the editor.
         </c:when>
             <c:otherwise>
                 <h:form>
-                    <h:commandButton id="endAuction" value="End Auction" action="#{userController.endAuction(productController.product)}"/>
+                    <h:commandButton id="endAuction" value="End Auction" action="#{productCatalogController.endAuction(productController.product)}"/>
                 </h:form>
             </c:otherwise>
         </c:choose>

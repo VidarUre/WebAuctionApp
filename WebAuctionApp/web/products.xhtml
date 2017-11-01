@@ -55,7 +55,7 @@
         <!-- Filtering options -->
             <ui:repeat value="#{productController.findAllProducts()}" var="product">
                 <tr>
-                    <c:if test="#{product.published}"> <!-- Noe galt her -->
+                    <c:if test="#{!product.published}"> <!-- Noe galt her -->
                         <td><h:outputText value="#{product.name}" /></td>
                         <td><h:outputText value="#{product.remainingTime}" /></td>
                         <td><h:outputText value="#{product.currentBid.amount}" /></td>

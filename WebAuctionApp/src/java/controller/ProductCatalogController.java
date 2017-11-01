@@ -11,8 +11,16 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.jms.TopicConnectionFactory;
 import messageservices.EmailProducer;
 
 /**
@@ -49,6 +57,12 @@ public class ProductCatalogController implements Serializable {
 
     @EJB
     private BidCM bidCM;
+    
+    @Resource(lookup = "jms/productsConnectionFactory")
+    private TopicConnectionFactory connectionFactory;
+    @Resource(lookup = "jms/productsTopic")
+    private Topic topic;
+    
     /**
      * Creates a new instance of ProductCatalog
      */
@@ -116,6 +130,7 @@ public class ProductCatalogController implements Serializable {
             this.userController.getUser().setProductsForSale(this.productsForSale);
             this.product.setCatalog(this.productsForSale);
             productCatalogCM.updateProductCatalog(this.productsForSale);
+            sendRefreshProducts();
             result = "products";
         } else {
             result = "publishproduct";
@@ -153,6 +168,28 @@ public class ProductCatalogController implements Serializable {
         User winner = product.getCurrentBid().getBidder();
         this.emailProd.sendEmail(winner, product);
         return "products";
+    }
+    
+    public void sendRefreshProducts() {
+        MessageProducer messageProducer;
+        TextMessage textMessage;
+        try {
+            Connection connection = connectionFactory.createConnection();
+            Session session = connection.createSession(false,
+                    Session.AUTO_ACKNOWLEDGE);
+            messageProducer = session.createProducer(topic);
+            textMessage = session.createTextMessage();
+
+            textMessage.setText("REFRESH LIST");
+            System.out.println(textMessage.getText());
+            messageProducer.send(textMessage);
+
+            messageProducer.close();
+            session.close();
+            connection.close();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 
     public Product getProduct() {
